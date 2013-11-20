@@ -1,0 +1,73 @@
+body {
+  //background: url(/images/singlepage/squairy_light.png) repeat;
+
+    background-color: white;
+    background-image: none;
+
+  .row {
+  }
+
+  .first_section {
+    margin-bottom: 0px;
+    text-align: left;
+
+    .share {
+      padding-top: 25px;
+    }
+
+    h1 {
+      font-weight: normal;
+      font-size: 30px;
+    }
+
+    p.subhead {
+      font-size: 16px;
+    }
+
+    p.by {
+      color: #33541D;
+    }
+
+    .explain {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    h4 {
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+  }
+
+  .section {
+    padding-top: 50px;
+    padding-bottom: 30px;
+    border-bottom: 1px dotted #666;
+
+    h2 {
+      font-weight: normal;
+      font-size: 24px;
+    }
+
+    h3 {
+      font-weight: normal;
+      font-size: 20px;
+    }
+
+    ol {
+      li {
+        margin-bottom: 15px;
+      
+        ol {
+          
+          padding-top: 10px;
+
+          li {
+            margin-bottom: 10px;
+          }
+
+        }
+      }
+    }
+  }
+}
