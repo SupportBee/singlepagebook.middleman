@@ -53,6 +53,15 @@ set :images_dir, 'images'
 
 activate :directory_indexes
 
+set :markdown_engine, :redcarpet
+#set :markdown, 
+    #:layout_engine => :erb, 
+    #:tables => true, 
+    #:autolink => true, 
+    #:smartypants => true, 
+    #:superscript => true
+
+
 # Build-specific configuration
 configure :build do
   # For example, change the Compass output style for deployment
@@ -71,4 +80,12 @@ configure :build do
   # set :http_prefix, "/Content/images/"
   sprockets.import_asset 'mobile'
   
+end
+
+helpers do
+  def gist(url, options = {} )
+    output = ActiveSupport::SafeBuffer.new
+    output.safe_concat "<script src='#{url}.js'></script>"
+    output
+  end
 end

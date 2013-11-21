@@ -15,7 +15,7 @@ However, before we talk more about the Single Page Mindset, let's quickly talk a
 
 Traditionally, Javascript has been used to enhance the UX (user experience) of an app. A typical web-app (for example the older Basecamp or Highrise) renders pages on the server and sends them back to the browser. The browser simply display it to the user. Javascript is used as and when needed - form validations, click event handlers etc. Since the rise of Web 2.0, developers started using Javascript for AJAX to fetch data (JSON/XML) or HTML and updating sections of the page in the browser without a full page reload. Let's look at a simple code example where we fetch a HTML segment and update the page (this pattern was very popular with Rails app a few years back)
 
-<<[Updating a DIV using jQuery](code/simple_ajax_update.js)
+<%=gist('https://gist.github.com/prateekdayal/7576691')%>
 
 You can interact with an API in a similar way. Only in the case of an API, the succcess method needs to parse the response and then do whatever is needed. If there are multiple sections of the page that need an update, you have to keep track of them and update them. If you have a page listing several products and you want to fetch and update the price for every product, the success handler will now look something like
 
