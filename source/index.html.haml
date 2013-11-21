@@ -42,6 +42,14 @@ title: Developing Single Page Web Apps with Backbone.js
     .span4.offset1
       = image_tag 'singlepage/singlepagebookcover.png'
 
+  - sitemap.where(:tags.include => "chapter").order_by(:index => :desc).all.each do |chapter|
+    %h3
+      %a{:href => chapter.url}= chapter.metadata[:page]['title']
+
+    <br/>
+    <br/>
+    <br/>
+
   .row.section
     .span6
       %h2 Table of Contents
