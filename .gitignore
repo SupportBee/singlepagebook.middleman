@@ -20,4 +20,6 @@
 .rvmrc
 *.un*
 *.swp
+*.swn
 *.swo
+tmp/
