@@ -8,6 +8,7 @@
     %link{:href => "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css", :rel => "stylesheet"}
     = stylesheet_link_tag 'single_page'
     = javascript_include_tag  "all"
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans:700italic,400,700' rel='stylesheet' type='text/css'>
   %body{:class => page_classes}
     .container
       .navbar-header
@@ -16,7 +17,14 @@
         %ul.nav.navbar-nav.navbar-right
           %li
             %a{:href => "../about"} About this Book
-    = yield
+
+    .container
+      .row.section
+        .col-md-6
+          = yield
+        .col-md-4.col-md-offset-2
+          .row
+            = partial 'sidebar'
     .container
       .row.section
         %h2 Tell Us What You Think!

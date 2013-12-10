@@ -2,79 +2,52 @@
 title: Developing Single Page Web Apps with Backbone.js
 ---
 
-.container
-  .row.section
-    .col-md-6
-      %h2 Table of Contents
-      %ol 
-        - sitemap.where(:tags.include => "chapter").order_by(:index => :asc).all.each do |chapter|
-          %li
-            %a{:href => chapter.url}= chapter.metadata[:page]['title']
-        %li
-          Managing multiple screens
-          %ol
-            %li The need for a current view class
-            %li URL change first pattern
-            %li Identity map to keep screen updates in sync
-        %li 
-          Posting to the server
-          %ol
-            %li New Reply Model
-            %li New Reply View
-            %li Updating the Ticket View on posting a New Reply
-        %li
-          Getting Fancier
-          %ol
-            %li Keyboard shortcuts
-            %li Keeping track of the last listing
-            %li Showing Loading prompt and other notifications
-        %li 
-          Pushing Updates in Real Time
-          %ol
-            %li Setting up Faye with Rails
-            %li Listening to a Channel
-            %li A scheme for handling different updates
-        %li
-          Rendering on Mobile
-          %ol
-            %li Throwing jQuery Mobile into the mix
-            %li Rendering mobile specific views and layouts
-            %li Selectively turning off functionality on the mobile
-            %li Tips on testing the mobile layout
-        %li
-          Automated Testing using Jasmine
-          %ol
-            %li Introduction to Jasmine & Sinon.js
-            %li Testing Models
-            %li Testing Views
-            %li Testing Collections
-            %li Helpers for writing tests more easily
-        %li
-          Closing Remarks
-          %ol
-            %li Focus on the architecture
-            %li Importance of testing
-    .col-md-4.col-md-offset-2
-      .row
-        .share
-          %h4 Share the Love
-          <a href="https://twitter.com/share" class="twitter-share-button" data-via="supportbee">Tweet</a>
-          <div class="fb-like" data-href="https://singlepagebook.supportbee.com" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
-      .row
-        #mc_embed_signup
-          %h4 Receive updates when a new chapter is added!
-          %form#mc-embedded-subscribe-form.validate{:action => "http://supportbee.us2.list-manage1.com/subscribe/post?u=42e6ff571eaf930103b81ce44&id=f8bc1e98e3", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
-            .indicates-required
-            .mc-field-group
-              %label{:for => "mce-EMAIL"}
-                Email Address
-                .col-md-.asterisk *
-              %input#mce-EMAIL.required.email{:name => "EMAIL", :type => "email", :value => ""}/
-            #mce-responses.clear
-              #mce-error-response.response{:style => "display:none"}
-              #mce-success-response.response{:style => "display:none"}
-            .clear
-              %input#mc-embedded-subscribe.btn.btn-primary{:name => "subscribe", :type => "submit", :value => "Subscribe for Announcements"}/
-        %p We will email you only when there is a new chapter. No other updates or spam!
-
-
+%h2 Table of Contents
+%ol 
+  - sitemap.where(:tags.include => "chapter").order_by(:index => :asc).all.each do |chapter|
+    %li
+      %a{:href => chapter.url}= chapter.metadata[:page]['title']
+  %li
+    Managing multiple screens
+    %ol
+      %li The need for a current view class
+      %li URL change first pattern
+      %li Identity map to keep screen updates in sync
+  %li 
+    Posting to the server
+    %ol
+      %li New Reply Model
+      %li New Reply View
+      %li Updating the Ticket View on posting a New Reply
+  %li
+    Getting Fancier
+    %ol
+      %li Keyboard shortcuts
+      %li Keeping track of the last listing
+      %li Showing Loading prompt and other notifications
+  %li 
+    Pushing Updates in Real Time
+    %ol
+      %li Setting up Faye with Rails
+      %li Listening to a Channel
+      %li A scheme for handling different updates
+  %li
+    Rendering on Mobile
+    %ol
+      %li Throwing jQuery Mobile into the mix
+      %li Rendering mobile specific views and layouts
+      %li Selectively turning off functionality on the mobile
+      %li Tips on testing the mobile layout
+  %li
+    Automated Testing using Jasmine
+    %ol
+      %li Introduction to Jasmine & Sinon.js
+      %li Testing Models
+      %li Testing Views
+      %li Testing Collections
+      %li Helpers for writing tests more easily
+  %li
+    Closing Remarks
+    %ol
+      %li Focus on the architecture
+      %li Importance of testing

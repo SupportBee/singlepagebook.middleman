@@ -1,4 +1,9 @@
 body {
+
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.5em;
+  
   //background: url(/images/singlepage/squairy_light.png) repeat;
 
     background-color: white;
@@ -39,34 +44,33 @@ body {
     }
   }
 
-  .section {
-    padding-top: 50px;
-    padding-bottom: 30px;
-    border-bottom: 1px dotted #666;
+  h2 {
+    font-weight: normal;
+    font-size: 24px;
+  }
 
-    h2 {
-      font-weight: normal;
-      font-size: 24px;
-    }
+  h3 {
+    font-weight: normal;
+    font-size: 20px;
+  }
 
-    h3 {
-      font-weight: normal;
-      font-size: 20px;
-    }
+  h1, h2, h3, h4, a.navbar-brand {
+    font-family: 'Oswald', sans-serif;
+  }
+    
 
-    ol {
-      li {
-        margin-bottom: 15px;
-      
-        ol {
-          
-          padding-top: 10px;
+  ol {
+    li {
+      margin-bottom: 15px;
+    
+      ol {
+        
+        padding-top: 10px;
 
-          li {
-            margin-bottom: 10px;
-          }
-
+        li {
+          margin-bottom: 10px;
         }
+
       }
     }
   }
