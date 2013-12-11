@@ -1,0 +1,107 @@
+/* line 1, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.5em;
+  background-color: white;
+  background-image: none; }
+  /* line 15, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body .first_section {
+    margin-bottom: 0px;
+    text-align: left; }
+    /* line 19, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .first_section .share {
+      padding-top: 25px; }
+    /* line 23, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .first_section h1 {
+      font-weight: normal;
+      font-size: 30px; }
+    /* line 28, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .first_section p.subhead {
+      font-size: 16px; }
+    /* line 32, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .first_section p.by {
+      color: #33541D; }
+    /* line 36, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .first_section .explain {
+      padding-top: 40px;
+      padding-bottom: 40px; }
+    /* line 41, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .first_section h4 {
+      font-weight: normal;
+      margin-bottom: 20px; }
+  /* line 47, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body h1 {
+    margin-bottom: 40px; }
+  /* line 51, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body h2 {
+    font-weight: normal;
+    font-size: 24px;
+    margin-bottom: 25px; }
+  /* line 57, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body h3 {
+    font-weight: normal;
+    font-size: 20px; }
+  /* line 62, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body h1, body h2, body h3, body h4, body a.navbar-brand, body p.chapter {
+    font-family: 'Oswald', sans-serif; }
+  /* line 66, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body p.chapter {
+    font-size: 22px;
+    color: #868686; }
+  /* line 73, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body ol li {
+    margin-bottom: 15px; }
+    /* line 76, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body ol li ol {
+      padding-top: 10px; }
+      /* line 80, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+      body ol li ol li {
+        margin-bottom: 10px; }
+  /* line 88, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body header {
+    margin-bottom: 30px;
+    padding: 5px 0px;
+    background-color: #16a085; }
+    /* line 92, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body header a {
+      color: white; }
+    /* line 96, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body header a.navbar-brand {
+      padding-left: 0px; }
+    /* line 100, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body header a.navbar-brand:hover {
+      color: #F2F2F2; }
+  /* line 105, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body .sidebar {
+    padding-top: 100px; }
+    /* line 108, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .sidebar .fb-like {
+      margin-right: 25px; }
+    /* line 112, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .sidebar .section {
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px dotted #ccc; }
+      /* line 118, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+      body .sidebar .section h4 {
+        margin-bottom: 25px; }
+    /* line 124, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .sidebar .about_supportbee h4 {
+      line-height: 20px; }
+    /* line 130, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .sidebar form label {
+      display: block;
+      font-weight: normal; }
+    /* line 135, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+    body .sidebar form p.disclaimer {
+      font-size: 0.8em;
+      margin-top: 15px; }
+  /* line 142, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body .comments {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    margin-top: 30px; }
+  /* line 148, /Users/prateekdayal/work/ebooks/singlepage.middleman/source/stylesheets/single_page.css.scss */
+  body img.cover {
+    width: 100%; }

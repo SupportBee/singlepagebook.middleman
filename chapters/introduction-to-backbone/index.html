@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+    <title>Introduction to Backbone.js</title>
+    <link href='//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css' rel='stylesheet'>
+    <link href="/stylesheets/single_page.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all.js" type="text/javascript"></script>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans:700italic,400,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body class='chapters chapters_introduction-to-backbone chapters_introduction-to-backbone_index'>
+    <header>
+      <div class='container'>
+        <div class='row'>
+          <div class='navbar-header'>
+            <a class='navbar-brand' href='/'>Developing Single Page Apps with Backbone.js</a>
+          </div>
+          <nav class='collapse navbar-collapse bs-navbar-collapse' role='navigation'>
+            <ul class='nav navbar-nav navbar-right'>
+              <li>
+                <a href='/about'>About this Book</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div class='container'>
+      <div class='row section'>
+        <div class='col-md-7'>
+          <div class='row'>
+            <p class='chapter'>Chapter 2</p>
+            <h1>Introduction to Backbone.js</h1>
+            <p>The single page ecosystem has exploded in the last couple of years. There are dozens of frameworks available to build single page apps. Apart from Backbone.js, <a href="http://emberjs.com/">Ember.js</a>, <a href="http://knockoutjs.com/">Knockout.js</a> and <a href="http://angularjs.org/">AngularJS</a> by Google are some of the other popular alternatives. If you are still deciding on which framework to do, you have a tough job ahead! Every framework has it&#39;s pros and cons and there are many comparisons available on the internet.</p>
+            
+            <h2>Why Backbone.js</h2>
+            
+            <p>When starting work on SupportBee&#39;s frontend, we started exploring client side MVC frameworks and started exploring the choices available back then (late 2010). On one end, there were big frameworks like <a href="http://www.sencha.com/products/extjs/">ExtJS</a> and <a href="http://sproutcore.com/">SproutCore</a> that offered the MVC structure, widgets and many other components. On the other end were simple MVC frameworks like Backbone.js and Knockout.js that provided just enough structure to your application and got out of the way. Coming from a jQuery background and having witnessed the jQuery plugin ecosystem, we decided to opt for the simpler MVC frameworks for structuring code and sticking with jQuery plugins for additional functionality. This way we could pick and choose the components that we need (based on the functionality, quality of documentation etc.)</p>
+            
+            <h2>A Quick Walkthrough of the framework</h2>
+            
+            <p>If you are new to Backbone.js, there are some really great tutorials and books out there. I have compiled a list of some useful resources and put them in the last section of this chapter. I encourage you to go and checkout these resources if you need to get a grip on the basics. If you have looked at Backbone.js before, this short introduction should suffice for you. Let&#39;s get started!</p>
+            
+            <p>In their own words,</p>
+            
+            <blockquote>
+            <p>Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.</p>
+            </blockquote>
+            
+            <p>Let&#39;s go over the main components of Backbone.js (in the order that they are introduced in, in the official documentation)</p>
+            
+            <h3>Events</h3>
+            
+            <p>Events are at the heart of Backbone.js and any well designed single page app. By mixing in the <code>Events</code> module, almost any object can dispatch and listen to events. By default, Models, Views and Controllers can dispatch and listen to events. There are several pre-defined events in Backbone.js and you can (and you should, as we will see later) define and dispatch custom events. Let&#39;s look at a quick example (taken from the Backbone.js documentation)</p>
+            
+            <pre><code>var object = {};
+            
+            _.extend(object, Backbone.Events);
+            
+            object.on(&quot;alert&quot;, function(msg) {
+              alert(&quot;Triggered &quot; + msg);
+            });
+            
+            object.trigger(&quot;alert&quot;, &quot;an event&quot;);
+            </code></pre>
+            
+            <p>In this simple example, every time <code>object</code> wants to alert <em>someobject</em>, it can dispatch the <code>alert</code> event. Other objects can bind to this event and respond however they want. The <code>object</code> does not need to know who is listening to this event and what they are doing with that information.</p>
+            
+            <h3>Backbone.Model</h3>
+            
+            <p>Backbone Models offer you a way to organize your domain specific code. Just like models in other MVC frameworks like Ruby on Rails, models in Backbone.js manage the domain data, validations etc. Using <code>Backbone.Sync</code>, they also take care of saving and fetching data from the server. </p>
+            
+            <p>However, unlike Rails&#39; models, Backbone.js models can help you manage change too. Every time an attribute changes, the model will fire a change event that other objects in your app can listen to. This happens whether you fire the change (by calling the <code>set</code> method) or you do a fetch and an updated value for the attribute is returned by the server. Continuing our product update example from the last chapter, we will create a <code>Product</code> model and bind to the <code>change:price</code> event to update the price on the page.</p>
+            
+            <p>As you will see in subsequent chapters, this is very powerful and helps you build interactive apps much more easily.</p>
+            
+            <h3>Backbone.Collection</h3>
+            
+            <p>Backbone Collections are ordered set of Models. Most single page applications need atleast one (and often more) collections. For example, a simple To-Do application would model each To-Do item as a model and the entire list as a To-Do collection. A more complex application like Gmail might have an Email model but many collections (one each for Inbox, Sent, Starred etc).</p>
+            
+            <p>Just like models, collections fire events whenever things change. Everytime a new model is added to the collection or a model is removed, a change event is fired. This helps you update the UI or do other interesting things. For example, in the product listing example from the previous page, we will create a <code>Products</code> collection. We will also bind to the <code>add</code> and <code>remove</code> events so we can render a new product or remove a product from the page whenever a product is added or removed from the catalog.</p>
+            
+            <h3>Backbone.Router</h3>
+            
+            <p>Backbone.Router provides methods for routing client-side pages, and connecting them to actions and events. A simple example can illustrate this very well</p>
+            
+            <pre><code>var Workspace = Backbone.Router.extend({
+            
+              routes: {
+                &quot;help&quot;:                 &quot;help&quot;,    // #help
+                &quot;search/:query&quot;:        &quot;search&quot;,  // #search/kiwis
+                &quot;search/:query/p:page&quot;: &quot;search&quot;   // #search/kiwis/p7
+              },
+            
+              help: function() {
+                ...
+              },
+            
+              search: function(query, page) {
+                ...
+              }
+            
+            });
+            </code></pre>
+            
+            <p>The <code>Workspace</code> router will setup routes such as <code>/help</code> or <code>#help</code> if you are on an older browser that does not support HTML5 history API. Whenever a route is matched, the corresponding handler (function) will be invoked. The Backbone.js documentation gives a good overview of all the features. While the documentation does not explicitly state it, you can create routes on the fly. This is a powerful feature that we use a lot in SupportBee. We&#39;ll take about it and a few other patterns in a subsequent chapter.</p>
+            
+            <h3>Backbone.Sync</h3>
+            
+            <p>Sync is responsible for all the server integrations. Whenever you save a model or fetch a collection, Backbone.Sync is involved. The Backbone documentation gives a great overview and if you are building a typical web-app that talks to a RESTful API, you will hardly have to fiddle with Backbone.Sync.</p>
+            
+            <h3>Backbone.View</h3>
+            
+            <p>Even though it is called a View, I like to think of Backbone.View as more of a controller (much like Rails Controller). Views by themselves don&#39;t really render any HTML or CSS (just like Rails controller don&#39;t render a html - the template does). </p>
+            
+            <p>Views are responsible for initializing the right models or collections, binding to the right events. When handling the right events, they can render templates and attach the rendered HTML to the DOM. Backbone.View does not force you into using a specific templating language (since it does not really render anything). Some of this may sound very abstract. Don&#39;t worry! We will explain these ideas as the book progresses.</p>
+            
+            <h2>The Backbone.js Ecosystem</h2>
+            
+            <p>Even though Backbone.js is fairly simple and does a few things (and does them well), over the last few years, the Backbone ecosystem has exploded with dozens of libraries. The <a href="https://github.com/documentcloud/backbone/wiki/Extensions%2C-Plugins%2C-Resources">Backbone.js Wiki</a> has a good list of plugins and other resources that you may find useful.</p>
+            
+            <p>Before you go crazy with the extensions, I encourage you to build an app without too many dependencies. As your app grows and you find inefficient or time consuming tasks, start looking for plugins.</p>
+            
+            <h2>Recommended Reading</h2>
+            
+            <p>While I was compiling the recommended reading list, I realized that Backbone.js Wiki has a page full on <a href="https://github.com/documentcloud/backbone/wiki/Tutorials%2C-blog-posts-and-example-sites">tutorials and books</a> and serves as a great starting point. If you have any specific books or tutorials that you found useful, leave them as a comment and I will slowly compile a list in this section.</p>
+          </div>
+          <div class='row'>
+            <ul class='pagination'>
+              <li>
+                <a href="/chapters/single-page-mindset/">&laquo; The Single Page Mindset</a></li>
+              </li>
+              <li>
+                <a href="/chapters/setting-new-application/">Setting up our new application &raquo;</a></li>
+              </li>
+            </ul>
+          </div>
+          <div class='row comments'>
+            <h2>Tell Us What You Think!</h2>
+            <p>What else would you like to see? What do you think is missing or not needed?</p>
+            <div id='disqus_thread'></div>
+            <script>
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'singlepageappsbook'; // required: replace example with your forum shortname
+              
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script>
+            <noscript>
+              Please enable JavaScript to view the
+              <a href='http://disqus.com/?ref_noscript'>comments powered by Disqus.</a>
+            </noscript>
+            <a class='dsq-brlink' href='http://disqus.com'>
+              comments powered by
+              <div class='col-md- logo-disqus'>Disqus</div>
+            </a>
+          </div>
+        </div>
+        <div class='col-md-4 col-md-offset-1'>
+          <div class='row sidebar'>
+            <div class='share section'>
+              <h4>Share The Book</h4>
+              <a data-url="https://singlepagebook.supportbee.com" href="https://twitter.com/share" class="twitter-share-button" data-via="supportbee">Tweet</a>
+              <div class="fb-like" data-href="https://singlepagebook.supportbee.com" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+              <div class="g-plusone" data-size="medium" data-href="https://singlepagebook.supportbee.com/"></div>
+            </div>
+            <div class='section' id='mc_embed_signup'>
+              <h4>Receive Updates For New Chapters</h4>
+              <form action='http://supportbee.us2.list-manage1.com/subscribe/post?u=42e6ff571eaf930103b81ce44&amp;id=f8bc1e98e3' class='validate' id='mc-embedded-subscribe-form' method='post' name='mc-embedded-subscribe-form' novalidate='' role='form' target='_blank'>
+                <div class='indicates-required'></div>
+                <div class='mc-field-group form-group'>
+                  <input class='required email' id='mce-EMAIL' name='EMAIL' placeholder='Your Email' type='email' value=''>
+                </div>
+                <div class='clear' id='mce-responses'>
+                  <div class='response' id='mce-error-response' style='display:none'></div>
+                  <div class='response' id='mce-success-response' style='display:none'></div>
+                </div>
+                <div class='clear'>
+                  <input class='btn btn-primary' id='mc-embedded-subscribe' name='subscribe' type='submit' value='Subscribe for Announcements'>
+                </div>
+                <p class='disclaimer'>We will email you only when there is a new chapter. No other updates or spam!</p>
+              </form>
+            </div>
+            <div class='about_supportbee section'>
+              <h4>
+                <img src="/images/the_bee_small.png" />
+                <span>About SupportBee</span>
+              </h4>
+              <p><a href="https://supportbee.com/?singlepage" target="_blank">SupportBee</a> is the easiest way for companies to manage their customer support emails. While staying close to an email like experience, SupportBee gives companies the tools needed to effortlessly collaborate with their entire team on support emails.</p>
+              <p>
+                <a href="https://twitter.com/supportbee" class="twitter-follow-button" data-show-count="false">Follow @supportbee</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  //
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-495367-31']);
+    _gaq.push(['_setDomainName', 'singlepagebook.supportbee.com']);
+    _gaq.push(['_addIgnoredOrganic', 'supportbee.com']); 
+    _gaq.push(['_addIgnoredOrganic', 'supportbee']); 
+    _gaq.push(['_addIgnoredOrganic', 'www.supportbee']); 
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  //
+</script>
+<script>
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>
+<div id='fb-root'></div>
+<script>
+  //
+    mixpanel.track('View SinglePageBook Landing');
+  //
+</script>
+<script>
+  (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=144952842228952";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/platform.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+</script>
+
+
