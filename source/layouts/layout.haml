@@ -33,7 +33,7 @@
                 - total_chapters = chapters.count
                 - if  current_index > 1
                   %li
-                    - previous_chapter = chapters.find {|c| puts c.data['index']; puts current_index - 1; c.data['index'].to_i == current_index - 1}
+                    - previous_chapter = chapters.find {|c| c.data['index'].to_i == current_index - 1}
                     <a href="#{previous_chapter.url}">&laquo; #{previous_chapter.data.title}</a></li>
                 - if current_index <= total_chapters - 1
                   %li

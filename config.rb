@@ -80,7 +80,7 @@ configure :build do
 
   # Or use a different image path
   # set :http_prefix, "/Content/images/"
-  sprockets.import_asset 'mobile'
+  #sprockets.import_asset 'mobile'
   
 end
 
@@ -90,4 +90,8 @@ helpers do
     output.safe_concat "<script src='#{url}.js'></script>"
     output
   end
+end
+
+activate :deploy do |deploy|
+  deploy.method = :git
 end
