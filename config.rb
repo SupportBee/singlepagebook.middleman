@@ -91,3 +91,7 @@ helpers do
     output
   end
 end
+
+activate :deploy do |deploy|
+  deploy.method = :git
+end
