@@ -1,4 +1,5 @@
 = wrap_layout :layout do 
   %p.chapter Chapter #{current_page.data['index']}
   %h1= current_page.data.title
-  = yield
+  .chapter_contents
+    = yield
