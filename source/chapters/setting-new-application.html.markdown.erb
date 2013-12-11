@@ -1,0 +1,64 @@
+---
+title: Setting up our new application
+layout: chapter
+index: 3
+tags: ['chapter']
+---
+
+
+## What are we building?
+
+We will be taking you through building [SupportBee](https://supportbee.com), our single page customer support software. SupportBee is a Gmail like application that helps you manage your customer support emails. There are two main types of screens in SupportBee - A Ticket Listing (much like Gmail's Inbox/Sent) and a Ticket View (much like the email view in Gmail where you can read the thread and reply to it).
+
+Over the course of the book, we will show you how we built SupportBee. We will start with simple listing and ticket view screens and then evolve the application as we go along.
+
+![SupportBee](/images/video-screen.png)
+
+## The SupportBee API
+
+To build the app, we would be using the [SupportBee API](https://developers.supportbee.com/api). We will assume that authentication is already taken care of and we can simply focus on making the right API calls.
+
+
+## Hacking Backbone.js to work with the SupportBee API
+
+Out of the box, Backbone.js works with a RESTful API pretty well. However if the JSON API that you are talking to wraps the response in a root element, you need to hack ``Backbone.Model`` and ``Backbone.Collection`` to be able to parse the root element. For example, the SupportBee API response for ``/tickets`` is
+
+<%=gist('https://gist.github.com/prateekdayal/7907485')%>
+
+If you notice, the individual tickets are inside a top level ``tickets`` element. To parse API responses like this, you can use the script below and include it in your project after including Backbone.js. There is also some meta data in the response (like ``total``, ``current_page`` etc) that is also parsed by this script.
+
+<%=gist('https://gist.github.com/prateekdayal/5530636')%>
+
+You can also find [this script](https://gist.github.com/prateekdayal/5530636) on Github. It's based off [another script](https://gist.github.com/trydionel/719080/604761f843f85d9916b790b6367f6de5e42fa19d) that I found on Github too!
+
+### Name attribute for Models and Collections
+
+To use the script, you must now provide a name attribute when defining all models and collections that need to interact with the API. This property is used to unwrap the JSON provided by the API.
+
+## Using an Asset Manager
+
+The way single page apps work, you package all your assets - javascripts, css and templates to the browser when the page loads and then you simply communicate with the server using AJAX calls. For big projects, there are sometimes dozens of files and managing them manually can get very hard. This is where a package manager comes in. For SupportBee we use [Jammit](http://documentcloud.github.io/jammit/) but you can use Rails' Asset Pipeline or any other tool. 
+
+This is what our Jammit file looks like. I have removed many files from the lists to keep it short. I have commented the file to provide some hints on what's going on. However, you should checkout the Jammit documentation to understand better.
+
+<%=gist('https://gist.github.com/prateekdayal/7246025')%>
+
+### Using the packaged assets
+
+This step depends on the package manager that you are using. Jammit provides some helpers for Rails that you can use to include the packaged assets. In development mode, nothing is concatenated for easier debugging. In production, assets are concatenated, some assets are embedded in the stylesheeets (if you have the option turned on). This is how you can include the files in your HTML file (we use [HAML](http://haml.info/) with Rails and so the code below is HAML which is eventually converted to HTML). 
+
+<%=gist('https://gist.github.com/prateekdayal/7907531')%>
+
+The above haml file is for the desktop layout. For the mobile layout, we would replace the desktop specific javascripts and stylesheets with the mobile specific ones.
+
+## A note on using Coffeescript
+
+When I started working on the SupportBee code, coffeescript was just picking up steam. I tried it out and decided that I was pretty comfortable in Javascript and did not want the additional complexity (especially when it came to debugging). After a few months however, I decided to switch to Coffeescript. There were a few big reasons for the switch
+
+* String interpolation makes life very easy. For example, you can write ``"Hello #{@first_name}"``
+* Defining a function with the fat arrow (`=>`) binds it to the current value of this. This makes things very predictable (pun _intended_)
+* Personally I find the coffeescript code much less verbose and a lot more readable.
+* A lot of other features that really help in writing code faster (inheritance, super etc)
+* Very easy to check for existence of a function before calling it. Something like ``callback?()``
+
+You don't have to use coffeescript but I encourage you to check it out. It will make your life a lot easier as your project grows.
