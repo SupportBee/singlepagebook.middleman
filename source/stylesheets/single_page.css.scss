@@ -1,4 +1,9 @@
 body {
+
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.5em;
+  
   //background: url(/images/singlepage/squairy_light.png) repeat;
 
     background-color: white;
@@ -39,35 +44,108 @@ body {
     }
   }
 
-  .section {
-    padding-top: 50px;
-    padding-bottom: 30px;
-    border-bottom: 1px dotted #666;
+  h1 {
+    margin-bottom: 40px;
+  }
 
-    h2 {
-      font-weight: normal;
-      font-size: 24px;
-    }
+  h2 {
+    font-weight: normal;
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
 
-    h3 {
-      font-weight: normal;
-      font-size: 20px;
-    }
+  h3 {
+    font-weight: normal;
+    font-size: 20px;
+  }
 
-    ol {
-      li {
-        margin-bottom: 15px;
-      
-        ol {
-          
-          padding-top: 10px;
+  h1, h2, h3, h4, a.navbar-brand, p.chapter {
+    font-family: 'Oswald', sans-serif;
+  }
 
-          li {
-            margin-bottom: 10px;
-          }
+  p.chapter {
+    font-size: 22px;
+    color: #868686;
+  }
+    
 
+  ol {
+    li {
+      margin-bottom: 15px;
+    
+      ol {
+        
+        padding-top: 10px;
+
+        li {
+          margin-bottom: 10px;
         }
+
       }
     }
+  }
+
+  header {
+    margin-bottom: 30px;
+    padding: 5px 0px;
+    background-color: #16a085;
+    a {
+      color: white;
+    }
+
+    a.navbar-brand {
+      padding-left: 0px;
+    }
+
+    a.navbar-brand:hover {
+      color: #F2F2F2;
+    }
+  }
+
+  .sidebar {
+    padding-top: 100px;
+   
+    .fb-like {
+      margin-right: 25px;
+    }
+
+    .section {
+
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px dotted #ccc;
+      
+      h4 {
+        margin-bottom: 25px;
+      }
+    }
+
+    .about_supportbee {
+      h4 {
+        line-height: 20px;
+      }
+    }
+
+    form {
+      label {
+        display: block;
+        font-weight: normal;
+      }
+
+      p.disclaimer {
+        font-size: 0.8em;
+        margin-top: 15px;
+      }
+    }
+  }
+
+  .comments {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    margin-top: 30px;
+  }
+
+  img.cover {
+    width: 100%;
   }
 }
