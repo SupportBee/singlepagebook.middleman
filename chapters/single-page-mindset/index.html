@@ -33,53 +33,57 @@
           <div class='row'>
             <p class='chapter'>Chapter 1</p>
             <h1>The Single Page Mindset</h1>
-            <p>When I started dabbling with programming (around the year 2000), <a href="http://www.mindviewinc.com/Index.php">Bruce Eckel</a> was one of my favorite technical authors. <a href="http://www.mindview.net/Books/TICPP/ThinkingInCPP2e.html">Thinking in C++</a> was one of the first great programming books that I read back in the days. Apart from the fact that you could read his books online for free, Bruce always taught you to <em>think</em> in a language. His books were in stark contrast to other reference books like <a href="http://www.amazon.com/The-Complete-Reference-5th-Edition/dp/0071634800">C++ The Complete Reference</a> that covered almost everything about the language but did not show you how to think in a particular language. </p>
-            
-            <p>I had a similar experience when I started working with Backbone.js a couple of years back. Having been a Ruby on Rails programmer for many years, I could easily understand what Backbone.js offered - Models, Views and Collections. However, I struggled with the Single Page <em>mindset</em>. I had many questions - How do I structure my code? How do I test drive my code? What patterns should I follow for building a desktop like app? This book should help you think about and answer some of these questions and get you into the <em>Single Page Mindset</em>.</p>
-            
-            <p>However, before we talk more about the Single Page Mindset, let&#39;s quickly talk about traditional JS enhanced apps.</p>
-            
-            <h2>Traditional Javascript enhanced Apps</h2>
-            
-            <p>Traditionally, Javascript has been used to enhance the UX (user experience) of an app. A typical web-app (for example the older Basecamp or Highrise) renders pages on the server and sends them back to the browser. The browser simply display it to the user. Javascript is used as and when needed - form validations, click event handlers etc. Since the rise of Web 2.0, developers started using Javascript for AJAX to fetch data (JSON/XML) or HTML and updating sections of the page in the browser without a full page reload. Let&#39;s look at a simple code example where we fetch a HTML segment and update the page (this pattern was very popular with Rails app a few years back)</p>
-            
-            <script src='https://gist.github.com/prateekdayal/7576691.js'></script>
-            
-            <p>You can interact with an API in a similar way. Only in the case of an API, the succcess method needs to parse the response and then do whatever is needed. If there are multiple sections of the page that need an update, you have to keep track of them and update them. If you have a page listing several products and you want to fetch and update the price for every product, the success handler will now look something like</p>
-            
-            <p>&lt;&lt;<a href="code/multiple_ajax_updates.js">Updating Multiple DIVs using jQuery</a></p>
-            
-            <h2>Single Page Apps</h2>
-            
-            <p>While JS enhanced Apps do most of the page rendering on the server side and send back the HTML, single page apps do most of their rendering on the client side (that means in the browser). Once you load a single page application in the browser, there is no full page reload and all the updates on the page happen without a page reload. <a href="https://trello.com/">Trello</a>, the collaborative project management software is a good example of this paradigm.</p>
-            
-            <h2>Multi-screen single page apps</h2>
-            
-            <p>Finally, there is a class of single page apps that involves fairly significant screen updates as you work with them. Different screens have distinct (bookmark-able) URLs just like a traditional JS enhanced apps. A good example is <a href="https://gmail.com">Gmail</a>. Your inbox, a single email, settings and contacts are different bookmarkable screens. You can go back and forth between these screens in Gmail without reloading the page in the browser. Our own application, <a href="https://supportbee.com">SupportBee</a> is a multi-screen single page app too.</p>
-            
-            <h2>Thinking the Single Page Way</h2>
-            
-            <p>Let&#39;s look at the second example where we update multiple product divs based on the JSON response that we get. There are several problems with code</p>
-            
-            <ul>
-            <li>The DIVS are identified by the <code>product_id</code>. To be able to do so, you have to render the divs with <code>name=product_id</code>.</li>
-            <li>If some code on the page updates the price of a product (let&#39;s say by applying a discount code), it has to remember to update the price of that product. If multiple products are updated, you have to iterate over the collection and update the price for each one of them. The amount of book keeping that you do keeps growing as your app grows.</li>
-            </ul>
-            
-            <p>As we go over the rest of the book you will be exposed to the Backbone.js way of handling these issues. To keep things sane, Backbone uses a MVC (Model, View, Collection) pattern and keeps data and logic and presentation separated. Also, extensive use of event binding ensures that you don&#39;t have to manually remember to update HTML whenever you change the data. Without getting ahead of ourselves and without diving into any Backbone.js specific code, let&#39;s see how we would conceptually handle this situation in Backbone</p>
-            
-            <ul>
-            <li>We will create a product model which will contain attributes like price, title etc</li>
-            <li>We will create a Backbone collection (since there are many products)</li>
-            <li>We will create a product view class and create an instance of it for every product that we have (in the collection).</li>
-            <li>Using event binding, we will make sure that whenever a product&#39;s price changes (independent of where/how it&#39;s changed), the new price is reflected in the view.</li>
-            </ul>
-            
-            <h2>Unique challenges faced by single page apps</h2>
-            
-            <p>Single Page Apps are certainly harder to build (atleast when you are just starting out with a new project). There are several unique challenges faced by them. The biggest one is that you are now giving up on many features that browsers provide to typical web applications. The biggest one being a clean state that is offered on every page reload. For example, if you were building Gmail and a user could drop a label on an email when viewing the email, you would have to make sure that on going back to the inbox, the label immediately shows up. In a conventional web-app, going back to the inbox would reload the page and fetch the new inbox page from the server. This would guarantee that the new email listing has the ticket with the right label. </p>
-            
-            <p>Another browser feature that users heavily depend on is the back button. Many single page applications break this expectation. Special care must be taken (that is code must be written!) to make sure that the back button works as expected in these applications. Finally, many users are used to copying the URLs for specific screens or bookmarking them for easy access later. If special care is not taken, screens in a single page application might not have a unique URL.</p>
+            <div class='chapter_contents'>
+              <p>When I started dabbling with programming (around the year 2000), <a href="http://www.mindviewinc.com/Index.php">Bruce Eckel</a> was one of my favorite technical authors. <a href="http://www.mindview.net/Books/TICPP/ThinkingInCPP2e.html">Thinking in C++</a> was one of the first great programming books that I read back in the days. Apart from the fact that you could read his books online for free, Bruce always taught you to <em>think</em> in a language. His books were in stark contrast to other reference books like <a href="http://www.amazon.com/The-Complete-Reference-5th-Edition/dp/0071634800">C++ The Complete Reference</a> that covered almost everything about the language but did not show you how to think in a particular language. </p>
+              
+              <p>I had a similar experience when I started working with Backbone.js a couple of years back. Having been a Ruby on Rails programmer for many years, I could easily understand what Backbone.js offered - Models, Views and Collections. However, I struggled with the Single Page <em>mindset</em>. I had many questions - How do I structure my code? How do I test drive my code? What patterns should I follow for building a desktop like app? This book should help you think about and answer some of these questions and get you into the <em>Single Page Mindset</em>.</p>
+              
+              <p>However, before we talk more about the Single Page Mindset, let&#39;s quickly talk about traditional JS enhanced apps.</p>
+              
+              <h2>Traditional Javascript enhanced Apps</h2>
+              
+              <p>Traditionally, Javascript has been used to enhance the UX (user experience) of an app. A typical web-app (for example the older Basecamp or Highrise) renders pages on the server and sends them back to the browser. The browser simply display it to the user. Javascript is used as and when needed - form validations, click event handlers etc. Since the rise of Web 2.0, developers started using Javascript for AJAX to fetch data (JSON/XML) or HTML and updating sections of the page in the browser without a full page reload. Let&#39;s look at a simple code example where we fetch a HTML segment and update the page (this pattern was very popular with Rails app a few years back)</p>
+              
+              <script src='https://gist.github.com/prateekdayal/7576691.js'></script>
+              
+              <p>You can interact with an API in a similar way. Only in the case of an API, the succcess method needs to parse the response and then do whatever is needed. If there are multiple sections of the page that need an update, you have to keep track of them and update them. If you have a page listing several products and you want to fetch and update the price for every product, the success handler will now look something like</p>
+              
+              <script src='https://gist.github.com/7906862.js'></script>
+              
+              <h2>Single Page Apps</h2>
+              
+              <p>While JS enhanced Apps do most of the page rendering on the server side and send back the HTML, single page apps do almost all of their rendering on the client side (that means in the browser). Once you load a single page application in the browser, there is no full page reload and all the updates on the page happen using Javascript. <a href="https://trello.com/">Trello</a>, the collaborative project management software is a good example of this paradigm.</p>
+              
+              <h2>Multi-screen single page apps</h2>
+              
+              <p>Finally, there is a class of single page apps that involve fairly significant screen updates as you work with them. Different screens have distinct (bookmark-able) URLs just like a traditional JS enhanced apps. A good example is <a href="https://gmail.com">Gmail</a>. Your inbox, a single email, settings and contacts are different bookmarkable screens. You can go back and forth between these screens in Gmail without reloading the page in the browser. Our own application, <a href="https://supportbee.com">SupportBee</a> is a multi-screen single page app too.</p>
+              
+              <h2>Thinking the Single Page Way</h2>
+              
+              <p>Let&#39;s look at the second example where we update multiple product divs based on the JSON response that we get. There are several problems with code</p>
+              
+              <ul>
+              <li>The DIVS are identified by the <code>product_id</code>. To be able to do so, you have to render the divs with <code>name=product_id</code>.</li>
+              <li>If some code on the page updates the price of a product (let&#39;s say by applying a discount code), it has to remember to update the price of that product. If multiple products are updated, you have to iterate over the collection and update the price for each one of them. The amount of book keeping that you do keeps growing as your app grows.</li>
+              </ul>
+              
+              <p>As we go over the rest of the book you will be exposed to the Backbone.js way of handling these issues. To keep things sane, Backbone uses a MVC (Model, View, Collection) pattern and keeps data and logic and presentation separated. Also, extensive use of event binding ensures that you don&#39;t have to manually remember to update HTML whenever you change the data. Without getting ahead of ourselves and without diving into any Backbone.js specific code, let&#39;s see how we would conceptually handle this situation in Backbone</p>
+              
+              <ul>
+              <li>We will create a product model which will contain attributes like <code>price</code>, <code>title</code> etc</li>
+              <li>We will create a Backbone collection (since there are many products)</li>
+              <li>We will create a product view class and create an instance of it for every product that we have (in the collection).</li>
+              <li>Using event binding, we will make sure that whenever a product&#39;s <code>price</code> changes (independent of where/how it&#39;s changed), the new price is reflected in the view.</li>
+              </ul>
+              
+              <h2>Unique challenges faced by single page apps</h2>
+              
+              <p>Single Page Apps are certainly harder to build (atleast when you are just starting out with a new project). There are several unique challenges faced by them. The biggest one is that you are now giving up on many features that browsers provide to typical web applications. The biggest one being a clean state that is offered on every page reload. For example, if you were building Gmail and a user could drop a label on an email when viewing the email, you would have to make sure that on going back to the inbox, the label immediately shows up. In a conventional web-app, going back to the inbox would reload the page and fetch the new inbox page from the server. This would guarantee that the new email listing has the ticket with the right label. </p>
+              
+              <p>Another browser feature that users heavily depend on is the back button. Many single page applications break this expectation. Special care must be taken (that is code must be written!) to make sure that the back button works as expected in these applications. Finally, many users are used to copying the URLs for specific screens or bookmarking them for easy access later. If special care is not taken, screens in a single page application might not have a unique URL.</p>
+              
+              <p>I have blogged about the <a href="https://devblog.supportbee.com/2011/08/10/the-pros-and-cons-of-developing-a-complete-javascript-ui/">pros and cons of building a single page app</a> in the past. The post is still relevant today. </p>
+            </div>
           </div>
           <div class='row'>
             <ul class='pagination'>
@@ -117,6 +121,7 @@
           <div class='row sidebar'>
             <div class='share section'>
               <h4>Share The Book</h4>
+              <img class='cover' src='/images/singlepagebookcover.jpg'>
               <a data-url="https://singlepagebook.supportbee.com" href="https://twitter.com/share" class="twitter-share-button" data-via="supportbee">Tweet</a>
               <div class="fb-like" data-href="https://singlepagebook.supportbee.com" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
               <div class="g-plusone" data-size="medium" data-href="https://singlepagebook.supportbee.com/"></div>

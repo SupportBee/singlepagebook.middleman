@@ -33,99 +33,77 @@
           <div class='row'>
             <p class='chapter'>Chapter 2</p>
             <h1>Introduction to Backbone.js</h1>
-            <p>The single page ecosystem has exploded in the last couple of years. There are dozens of frameworks available to build single page apps. Apart from Backbone.js, <a href="http://emberjs.com/">Ember.js</a>, <a href="http://knockoutjs.com/">Knockout.js</a> and <a href="http://angularjs.org/">AngularJS</a> by Google are some of the other popular alternatives. If you are still deciding on which framework to do, you have a tough job ahead! Every framework has it&#39;s pros and cons and there are many comparisons available on the internet.</p>
-            
-            <h2>Why Backbone.js</h2>
-            
-            <p>When starting work on SupportBee&#39;s frontend, we started exploring client side MVC frameworks and started exploring the choices available back then (late 2010). On one end, there were big frameworks like <a href="http://www.sencha.com/products/extjs/">ExtJS</a> and <a href="http://sproutcore.com/">SproutCore</a> that offered the MVC structure, widgets and many other components. On the other end were simple MVC frameworks like Backbone.js and Knockout.js that provided just enough structure to your application and got out of the way. Coming from a jQuery background and having witnessed the jQuery plugin ecosystem, we decided to opt for the simpler MVC frameworks for structuring code and sticking with jQuery plugins for additional functionality. This way we could pick and choose the components that we need (based on the functionality, quality of documentation etc.)</p>
-            
-            <h2>A Quick Walkthrough of the framework</h2>
-            
-            <p>If you are new to Backbone.js, there are some really great tutorials and books out there. I have compiled a list of some useful resources and put them in the last section of this chapter. I encourage you to go and checkout these resources if you need to get a grip on the basics. If you have looked at Backbone.js before, this short introduction should suffice for you. Let&#39;s get started!</p>
-            
-            <p>In their own words,</p>
-            
-            <blockquote>
-            <p>Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.</p>
-            </blockquote>
-            
-            <p>Let&#39;s go over the main components of Backbone.js (in the order that they are introduced in, in the official documentation)</p>
-            
-            <h3>Events</h3>
-            
-            <p>Events are at the heart of Backbone.js and any well designed single page app. By mixing in the <code>Events</code> module, almost any object can dispatch and listen to events. By default, Models, Views and Controllers can dispatch and listen to events. There are several pre-defined events in Backbone.js and you can (and you should, as we will see later) define and dispatch custom events. Let&#39;s look at a quick example (taken from the Backbone.js documentation)</p>
-            
-            <pre><code>var object = {};
-            
-            _.extend(object, Backbone.Events);
-            
-            object.on(&quot;alert&quot;, function(msg) {
-              alert(&quot;Triggered &quot; + msg);
-            });
-            
-            object.trigger(&quot;alert&quot;, &quot;an event&quot;);
-            </code></pre>
-            
-            <p>In this simple example, every time <code>object</code> wants to alert <em>someobject</em>, it can dispatch the <code>alert</code> event. Other objects can bind to this event and respond however they want. The <code>object</code> does not need to know who is listening to this event and what they are doing with that information.</p>
-            
-            <h3>Backbone.Model</h3>
-            
-            <p>Backbone Models offer you a way to organize your domain specific code. Just like models in other MVC frameworks like Ruby on Rails, models in Backbone.js manage the domain data, validations etc. Using <code>Backbone.Sync</code>, they also take care of saving and fetching data from the server. </p>
-            
-            <p>However, unlike Rails&#39; models, Backbone.js models can help you manage change too. Every time an attribute changes, the model will fire a change event that other objects in your app can listen to. This happens whether you fire the change (by calling the <code>set</code> method) or you do a fetch and an updated value for the attribute is returned by the server. Continuing our product update example from the last chapter, we will create a <code>Product</code> model and bind to the <code>change:price</code> event to update the price on the page.</p>
-            
-            <p>As you will see in subsequent chapters, this is very powerful and helps you build interactive apps much more easily.</p>
-            
-            <h3>Backbone.Collection</h3>
-            
-            <p>Backbone Collections are ordered set of Models. Most single page applications need atleast one (and often more) collections. For example, a simple To-Do application would model each To-Do item as a model and the entire list as a To-Do collection. A more complex application like Gmail might have an Email model but many collections (one each for Inbox, Sent, Starred etc).</p>
-            
-            <p>Just like models, collections fire events whenever things change. Everytime a new model is added to the collection or a model is removed, a change event is fired. This helps you update the UI or do other interesting things. For example, in the product listing example from the previous page, we will create a <code>Products</code> collection. We will also bind to the <code>add</code> and <code>remove</code> events so we can render a new product or remove a product from the page whenever a product is added or removed from the catalog.</p>
-            
-            <h3>Backbone.Router</h3>
-            
-            <p>Backbone.Router provides methods for routing client-side pages, and connecting them to actions and events. A simple example can illustrate this very well</p>
-            
-            <pre><code>var Workspace = Backbone.Router.extend({
-            
-              routes: {
-                &quot;help&quot;:                 &quot;help&quot;,    // #help
-                &quot;search/:query&quot;:        &quot;search&quot;,  // #search/kiwis
-                &quot;search/:query/p:page&quot;: &quot;search&quot;   // #search/kiwis/p7
-              },
-            
-              help: function() {
-                ...
-              },
-            
-              search: function(query, page) {
-                ...
-              }
-            
-            });
-            </code></pre>
-            
-            <p>The <code>Workspace</code> router will setup routes such as <code>/help</code> or <code>#help</code> if you are on an older browser that does not support HTML5 history API. Whenever a route is matched, the corresponding handler (function) will be invoked. The Backbone.js documentation gives a good overview of all the features. While the documentation does not explicitly state it, you can create routes on the fly. This is a powerful feature that we use a lot in SupportBee. We&#39;ll take about it and a few other patterns in a subsequent chapter.</p>
-            
-            <h3>Backbone.Sync</h3>
-            
-            <p>Sync is responsible for all the server integrations. Whenever you save a model or fetch a collection, Backbone.Sync is involved. The Backbone documentation gives a great overview and if you are building a typical web-app that talks to a RESTful API, you will hardly have to fiddle with Backbone.Sync.</p>
-            
-            <h3>Backbone.View</h3>
-            
-            <p>Even though it is called a View, I like to think of Backbone.View as more of a controller (much like Rails Controller). Views by themselves don&#39;t really render any HTML or CSS (just like Rails controller don&#39;t render a html - the template does). </p>
-            
-            <p>Views are responsible for initializing the right models or collections, binding to the right events. When handling the right events, they can render templates and attach the rendered HTML to the DOM. Backbone.View does not force you into using a specific templating language (since it does not really render anything). Some of this may sound very abstract. Don&#39;t worry! We will explain these ideas as the book progresses.</p>
-            
-            <h2>The Backbone.js Ecosystem</h2>
-            
-            <p>Even though Backbone.js is fairly simple and does a few things (and does them well), over the last few years, the Backbone ecosystem has exploded with dozens of libraries. The <a href="https://github.com/documentcloud/backbone/wiki/Extensions%2C-Plugins%2C-Resources">Backbone.js Wiki</a> has a good list of plugins and other resources that you may find useful.</p>
-            
-            <p>Before you go crazy with the extensions, I encourage you to build an app without too many dependencies. As your app grows and you find inefficient or time consuming tasks, start looking for plugins.</p>
-            
-            <h2>Recommended Reading</h2>
-            
-            <p>While I was compiling the recommended reading list, I realized that Backbone.js Wiki has a page full on <a href="https://github.com/documentcloud/backbone/wiki/Tutorials%2C-blog-posts-and-example-sites">tutorials and books</a> and serves as a great starting point. If you have any specific books or tutorials that you found useful, leave them as a comment and I will slowly compile a list in this section.</p>
+            <div class='chapter_contents'>
+              <p>The single page ecosystem has exploded in the last couple of years. There are dozens of frameworks available to build single page apps. Apart from Backbone.js, <a href="http://emberjs.com/">Ember.js</a>, <a href="http://knockoutjs.com/">Knockout.js</a> and <a href="http://angularjs.org/">AngularJS</a> by Google are some of the other popular alternatives. If you are still deciding on which framework to use, you have a tough job ahead! Every framework has it&#39;s pros and cons and there are many comparisons available on the internet.</p>
+              
+              <h2>Why we picked Backbone.js</h2>
+              
+              <p>When starting work on SupportBee&#39;s frontend, we started exploring client side MVC frameworks and started exploring the choices available back then (late 2010). On one end, there were big frameworks like <a href="http://www.sencha.com/products/extjs/">ExtJS</a> and <a href="http://sproutcore.com/">SproutCore</a> that offered the MVC structure, widgets and many other components. On the other end were simple MVC frameworks like Backbone.js and Knockout.js that provided just enough structure to your application and got out of the way. Coming from a jQuery background and having witnessed the jQuery plugin ecosystem, we decided to opt for the simpler MVC frameworks for structuring code and sticking with jQuery plugins for additional functionality. This way we could avoid any kind of lock in and pick and choose the components we needed based on the functionality and quality of documentation.</p>
+              
+              <h2>A quick walkthrough of the framework</h2>
+              
+              <p>If you are new to Backbone.js, there are some really great tutorials and books out there.Backbone.js Wiki has a page full on <a href="https://github.com/documentcloud/backbone/wiki/Tutorials%2C-blog-posts-and-example-sites">tutorials and books</a> and serves as a great starting point. If you have any favorites, please leave the links in the comments. </p>
+              
+              <p>If you have looked at Backbone.js before, this short introduction should suffice for you. Let&#39;s get started!</p>
+              
+              <p>In their own words,</p>
+              
+              <blockquote>
+              <p>Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.</p>
+              </blockquote>
+              
+              <p>Let&#39;s go over the main components of Backbone.js (in the order that they are introduced in, in the official documentation)</p>
+              
+              <h3>Events</h3>
+              
+              <p>Events are at the heart of Backbone.js and any well designed single page app. By mixing in the <code>Events</code> module, almost any object can dispatch and listen to events. Out of the box Models, Views and Controllers can dispatch and listen to events. There are several pre-defined events in Backbone.js and you can (and you should, as we will see later) define and dispatch custom events. Let&#39;s look at a quick example (taken from the Backbone.js documentation)</p>
+              
+              <script src='https://gist.github.com/prateekdayal/7907071.js'></script>
+              
+              <p>In this simple example, every time <code>object</code> wants to alert <em>someobject</em>, it can dispatch the <code>alert</code> event. Other objects can bind to this event and respond however they want. The <code>object</code> does not need to know who is listening to this event and what they are doing with that information.</p>
+              
+              <h3>Backbone.Model</h3>
+              
+              <p>Backbone Models offer you a way to organize your domain specific code. Just like models in other MVC frameworks like Ruby on Rails, models in Backbone.js manage the domain data, validations etc. Using <code>Backbone.Sync</code>, they also take care of saving and fetching data from the server. </p>
+              
+              <p>However, unlike Rails&#39; models, Backbone.js models can help you manage change too. Every time an attribute changes, the model will fire a change event that other objects in your app can listen to. This happens whether you fire the change (by calling the <code>set</code> method) or you do a fetch and an updated value for the attribute is returned by the server. Continuing our product update example from the last chapter, we will create a <code>Product</code> model and bind to the <code>change:price</code> event to update the price on the page.</p>
+              
+              <p>As you will see in subsequent chapters, this is very powerful and helps you build interactive apps much more easily.</p>
+              
+              <h3>Backbone.Collection</h3>
+              
+              <p>Backbone Collections are ordered set of Models. Most single page applications need atleast one (and often more) collections. For example, a simple To-Do application would model each To-Do item as a model and the entire list as a To-Do collection. A more complex application like Gmail might have an Email model but many collections (one each for Inbox, Sent, Starred etc).</p>
+              
+              <p>Just like models, collections fire events whenever things change. Everytime a new model is added to the collection or a model is removed, a change event is fired. This helps you update the UI or do other interesting things. For example, in the product listing example from the previous page, we will create a <code>Products</code> collection. We will also bind to the <code>add</code> and <code>remove</code> events so we can render a new product or remove a product from the page whenever a product is added or removed from the catalog.</p>
+              
+              <h3>Backbone.Router</h3>
+              
+              <p>Backbone.Router provides methods for routing client-side pages, and connecting them to actions and events. A simple example can illustrate this very well</p>
+              
+              <script src='https://gist.github.com/prateekdayal/7907141.js'></script>
+              
+              <p>The <code>Workspace</code> router will setup routes such as <code>/help</code> (or <code>#help</code> if you are on an older browser that does not support HTML5 history API). Whenever a route is matched, the corresponding handler (function) will be invoked. The <a href="http://backbonejs.org/#Router">Backbone.js documentation on Router</a> gives a good overview of all the features. While the docs don&#39;t explicitly state it, you can create routes on the fly. This is a powerful feature that we use a lot in SupportBee. We&#39;ll talk about it and a few other patterns in a subsequent chapter.</p>
+              
+              <h3>Backbone.Sync</h3>
+              
+              <p>Sync is responsible for all the server integrations. Whenever you save a model or fetch a collection, Backbone.Sync is involved. The Backbone documentation gives a great overview and if you are building a typical web-app that talks to a RESTful API, you will hardly have to fiddle with Backbone.Sync.</p>
+              
+              <h3>Backbone.View</h3>
+              
+              <p>Even though it is called a View, I like to think of Backbone.View as more of a controller (much like Rails Controller). Views by themselves don&#39;t really render any HTML or CSS (just like Rails controller don&#39;t render html - the template does). </p>
+              
+              <p>In a Backbone.js app, views are responsible for initializing the right models or collections, binding to the right events and making sure different components can work together. When handling the right events, they can render templates and attach the rendered HTML to the DOM. Backbone does not force you into using a specific templating language (since it does not really render anything). Some of this may sound very abstract. Don&#39;t worry! We will explain these ideas as the book progresses.</p>
+              
+              <h2>The Backbone.js Ecosystem</h2>
+              
+              <p>Even though Backbone.js is fairly simple and does a few things (and does them well), over the last few years, the Backbone ecosystem has exploded with dozens of libraries. The <a href="https://github.com/documentcloud/backbone/wiki/Extensions%2C-Plugins%2C-Resources">Backbone.js Wiki</a> has a good list of plugins and other resources that you may find useful.</p>
+              
+              <p>Before you go crazy with the extensions, I encourage you to build an app without too many dependencies. As your app grows and you find inefficient or time consuming tasks, start looking for plugins.</p>
+              
+              <h2>Recommended Reading</h2>
+              
+              <p>While I was compiling the recommended reading list, I realized that  If you have any specific books or tutorials that you found useful, leave them as a comment and I will slowly compile a list in this section.</p>
+            </div>
           </div>
           <div class='row'>
             <ul class='pagination'>
@@ -166,6 +144,7 @@
           <div class='row sidebar'>
             <div class='share section'>
               <h4>Share The Book</h4>
+              <img class='cover' src='/images/singlepagebookcover.jpg'>
               <a data-url="https://singlepagebook.supportbee.com" href="https://twitter.com/share" class="twitter-share-button" data-via="supportbee">Tweet</a>
               <div class="fb-like" data-href="https://singlepagebook.supportbee.com" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
               <div class="g-plusone" data-size="medium" data-href="https://singlepagebook.supportbee.com/"></div>

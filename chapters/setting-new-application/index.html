@@ -33,90 +33,65 @@
           <div class='row'>
             <p class='chapter'>Chapter 3</p>
             <h1>Setting up our new application</h1>
-            <h2>What are we building</h2>
-            
-            <p>We will be taking you through building <a href="https://supportbee.com">SupportBee</a>, our single page customer support software. SupportBee is a Gmail like application that helps you manage your customer support emails. There are two main types of screens in SupportBee - A Ticket Listing (much like Gmail&#39;s Inbox/Sent) and a Ticket View (much like the email view in Gmail where you can read the thread and reply to it).</p>
-            
-            <p>Over the course of the book, we will show you how we built SupportBee. We will start with simple listing and ticket view screens and then evolve the application as we go along.</p>
-            
-            <p><img alt="SupportBee" src="/images/book/video-screen.png" /></p>
-            
-            <h2>SupportBee API</h2>
-            
-            <p>To build the app, we would be using the <a href="https://developers.supportbee.com/api">SupportBee API</a>. We will assume that cookie authentication is already taken care of and we can simply focus on making the right API calls.</p>
-            
-            <h2>Hacking Backbone.js to work with the SupportBee API</h2>
-            
-            <p>Out of the box, Backbone.js works with a RESTful API pretty well. However if the JSON API that you are talking to wraps the response in a root element, you need to hack <code>Backbone.Model</code> and <code>Backbone.Collection</code> to be able to parse the root element. For example, the SupportBee API response for <code>/tickets</code> is</p>
-            
-            <pre><code>{
-            &quot;total&quot;:1,
-            &quot;current_page&quot;:1,
-            &quot;per_page&quot;:10,
-            &quot;total_pages&quot;:1,
-            &quot;tickets&quot;:[
-              {
-                &quot;id&quot;:1,
-                &quot;subject&quot;:&quot;First Ticket Subject&quot;,
-                ...
-              }
-              {
-                &quot;id&quot;:2,
-                &quot;subject&quot;:&quot;Second Ticket Subject&quot;,
-                ...
-              }
-             ]
-            }                  
-            </code></pre>
-            
-            <p>If you notice, the individual tickets are inside a top level <code>tickets</code> element. To parse API responses like this, you can use the script below and include it in your project after including Backbone.js. There is also some meta data in the response (like <code>total</code>, <code>current_page</code> etc) that is also parsed by this script.</p>
-            
-            <p><gist>5530636</gist></p>
-            
-            <p>You can also find <a href="https://gist.github.com/prateekdayal/5530636">this script</a> on Github. It&#39;s based off <a href="https://gist.github.com/trydionel/719080/604761f843f85d9916b790b6367f6de5e42fa19d">another script</a> that I found on Github too!</p>
-            
-            <h3>Name attribute for Models and Collections</h3>
-            
-            <p>To use the script, you must now provide a name attribute when defining all models and collections that need to interact with the API. This property is used to unwrap the JSON provided by the API.</p>
-            
-            <h2>Using an Asset Manager</h2>
-            
-            <p>The way single page apps work, you package all your assets - javascripts, css and templates to the browser when the page loads and then you simply communicate with the server using AJAX calls. For big projects, there are sometimes dozens of files and managing them manually can get very hard. This is where a package manager comes in. For SupportBee we use <a href="http://documentcloud.github.io/jammit/">Jammit</a> but you can use Rails&#39; Asset Pipeline or any other tool. </p>
-            
-            <p>This is what our Jammit file looks like. I have removed many files from the lists to keep it short. I have commented the file to provide some hints on what&#39;s going on. However, you should checkout the Jammit documentation to understand better.</p>
-            
-            <p><gist>7246025</gist></p>
-            
-            <h3>Using the packaged assets</h3>
-            
-            <p>This step depends on the package manager that you are using. Jammit provides some helpers for Rails that you can use to include the packaged assets. In development mode, nothing is concatenated for easier debugging. In production, assets are concatenated, some assets are embedded in the stylesheeets (if you have the option turned on). This is how you can include the files in your HTML file (we use <a href="http://haml.info/">HAML</a> with Rails and so the code below is HAML which is eventually converted to HTML). </p>
-            
-            <pre><code>!!!
-            %html{:xmlns =&gt; &quot;http://www.w3.org/1999/xhtml&quot;}
-              %head
-                %meta{:content =&gt; &quot;text/html; charset=utf-8&quot;, &quot;http-equiv&quot; =&gt; &quot;Content-Type&quot;}/
-                == &lt;link rel=&quot;shortcut icon&quot; href=&quot;/favicon.ico&quot; /&gt;
-                == &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; &gt;
-                %title 
-                  = @page_title || &quot;SupportBee&quot; 
-                = include_stylesheets :common, :app, :desktop
-                = include_javascripts :common, :app_assets, :app, :desktop
-            </code></pre>
-            
-            <p>The above haml file is for the desktop layout. For the mobile layout, we would replace the desktop specific javascripts and stylesheets with the mobile specific ones.</p>
-            
-            <h2>A note on using Coffeescript</h2>
-            
-            <p>When I started working on the SupportBee code, coffeescript was just picking up steam. I tried it out and decided that I was pretty comfortable in Javascript and did not want the additional complexity (especially when it came to debugging). After a few months however, I decided to switch to Coffeescript. There were a few big reasons for the switch</p>
-            
-            <ul>
-            <li>String interpolation makes life very easy. For example, you can write <code>&quot;Hello #{@first_name}&quot;</code></li>
-            <li>Defining a function with the fat arrow (<code>=&gt;</code>) binds it to the current value of this. This makes things very predictable (pun <em>intended</em>)</li>
-            <li>Personally I find the coffeescript code much less verbose and a lot more readable.</li>
-            <li>A lot of other features that really help in writing code faster (inheritance, super etc)</li>
-            </ul>
-            
-            <p>You don&#39;t have to use coffeescript but I encourage you to check it out. It will make your life a lot easier as your project grows.</p>
+            <div class='chapter_contents'>
+              <h2>What are we building?</h2>
+              
+              <p>We will be taking you through building <a href="https://supportbee.com">SupportBee</a>, our single page customer support software. SupportBee is a Gmail like application that helps you manage your customer support emails. There are two main types of screens in SupportBee - A Ticket Listing (much like Gmail&#39;s Inbox/Sent) and a Ticket View (much like the email view in Gmail where you can read the thread and reply to it).</p>
+              
+              <p>Over the course of the book, we will show you how we built SupportBee. We will start with simple listing and ticket view screens and then evolve the application as we go along.</p>
+              
+              <p><img alt="SupportBee" src="/images/video-screen.png" /></p>
+              
+              <h2>The SupportBee API</h2>
+              
+              <p>To build the app, we would be using the <a href="https://developers.supportbee.com/api">SupportBee API</a>. We will assume that authentication is already taken care of and we can simply focus on making the right API calls.</p>
+              
+              <h2>Hacking Backbone.js to work with the SupportBee API</h2>
+              
+              <p>Out of the box, Backbone.js works with a RESTful API pretty well. However if the JSON API that you are talking to wraps the response in a root element, you need to hack <code>Backbone.Model</code> and <code>Backbone.Collection</code> to be able to parse the root element. For example, the SupportBee API response for <code>/tickets</code> is</p>
+              
+              <script src='https://gist.github.com/prateekdayal/7907485.js'></script>
+              
+              <p>If you notice, the individual tickets are inside a top level <code>tickets</code> element. To parse API responses like this, you can use the script below and include it in your project after including Backbone.js. There is also some meta data in the response (like <code>total</code>, <code>current_page</code> etc) that is also parsed by this script.</p>
+              
+              <script src='https://gist.github.com/prateekdayal/5530636.js'></script>
+              
+              <p>You can also find <a href="https://gist.github.com/prateekdayal/5530636">this script</a> on Github. It&#39;s based off <a href="https://gist.github.com/trydionel/719080/604761f843f85d9916b790b6367f6de5e42fa19d">another script</a> that I found on Github too!</p>
+              
+              <h3>Name attribute for Models and Collections</h3>
+              
+              <p>To use the script, you must now provide a name attribute when defining all models and collections that need to interact with the API. This property is used to unwrap the JSON provided by the API.</p>
+              
+              <h2>Using an Asset Manager</h2>
+              
+              <p>The way single page apps work, you package all your assets - javascripts, css and templates to the browser when the page loads and then you simply communicate with the server using AJAX calls. For big projects, there are sometimes dozens of files and managing them manually can get very hard. This is where a package manager comes in. For SupportBee we use <a href="http://documentcloud.github.io/jammit/">Jammit</a> but you can use Rails&#39; Asset Pipeline or any other tool. </p>
+              
+              <p>This is what our Jammit file looks like. I have removed many files from the lists to keep it short. I have commented the file to provide some hints on what&#39;s going on. However, you should checkout the Jammit documentation to understand better.</p>
+              
+              <script src='https://gist.github.com/prateekdayal/7246025.js'></script>
+              
+              <h3>Using the packaged assets</h3>
+              
+              <p>This step depends on the package manager that you are using. Jammit provides some helpers for Rails that you can use to include the packaged assets. In development mode, nothing is concatenated for easier debugging. In production, assets are concatenated, some assets are embedded in the stylesheeets (if you have the option turned on). This is how you can include the files in your HTML file (we use <a href="http://haml.info/">HAML</a> with Rails and so the code below is HAML which is eventually converted to HTML). </p>
+              
+              <script src='https://gist.github.com/prateekdayal/7907531.js'></script>
+              
+              <p>The above haml file is for the desktop layout. For the mobile layout, we would replace the desktop specific javascripts and stylesheets with the mobile specific ones.</p>
+              
+              <h2>A note on using Coffeescript</h2>
+              
+              <p>When I started working on the SupportBee code, coffeescript was just picking up steam. I tried it out and decided that I was pretty comfortable in Javascript and did not want the additional complexity (especially when it came to debugging). After a few months however, I decided to switch to Coffeescript. There were a few big reasons for the switch</p>
+              
+              <ul>
+              <li>String interpolation makes life very easy. For example, you can write <code>&quot;Hello #{@first_name}&quot;</code></li>
+              <li>Defining a function with the fat arrow (<code>=&gt;</code>) binds it to the current value of this. This makes things very predictable (pun <em>intended</em>)</li>
+              <li>Personally I find the coffeescript code much less verbose and a lot more readable.</li>
+              <li>A lot of other features that really help in writing code faster (inheritance, super etc)</li>
+              <li>Very easy to check for existence of a function before calling it. Something like <code>callback?()</code></li>
+              </ul>
+              
+              <p>You don&#39;t have to use coffeescript but I encourage you to check it out. It will make your life a lot easier as your project grows.</p>
+            </div>
           </div>
           <div class='row'>
             <ul class='pagination'>
@@ -154,6 +129,7 @@
           <div class='row sidebar'>
             <div class='share section'>
               <h4>Share The Book</h4>
+              <img class='cover' src='/images/singlepagebookcover.jpg'>
               <a data-url="https://singlepagebook.supportbee.com" href="https://twitter.com/share" class="twitter-share-button" data-via="supportbee">Tweet</a>
               <div class="fb-like" data-href="https://singlepagebook.supportbee.com" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
               <div class="g-plusone" data-size="medium" data-href="https://singlepagebook.supportbee.com/"></div>
