@@ -12,31 +12,33 @@
   %body{:class => page_classes}
     %header
       .container
-        .navbar-header
-          %a.navbar-brand{:href => "/"}= data.global.title
-        %nav.collapse.navbar-collapse.bs-navbar-collapse{:role => "navigation"}
-          %ul.nav.navbar-nav.navbar-right
-            %li
-              %a{:href => "/about"} About this Book
+        .row
+          .navbar-header
+            %a.navbar-brand{:href => "/"}= data.global.title
+          %nav.collapse.navbar-collapse.bs-navbar-collapse{:role => "navigation"}
+            %ul.nav.navbar-nav.navbar-right
+              %li
+                %a{:href => "/about"} About this Book
 
     .container
       .row.section
         .col-md-7
           .row
             = yield
-          .row
-            %ul.pagination
-              - current_index = current_page.data['index']
-              - chapters = sitemap.where(:tags.include => "chapter").all
-              - total_chapters = chapters.count
-              - if  current_index > 1
-                %li
-                  - previous_chapter = chapters.find {|c| puts c.data['index']; puts current_index - 1; c.data['index'].to_i == current_index - 1}
-                  <a href="#{previous_chapter.url}">&laquo; #{previous_chapter.data.title}</a></li>
-              - if current_index <= total_chapters - 1
-                %li
-                  - next_chapter = chapters.find {|c| c.data['index'].to_i == current_index + 1}
-                  <a href="#{next_chapter.url}">#{next_chapter.data.title} &raquo;</a></li>
+          - if current_page.data['tags']
+            .row
+              %ul.pagination
+                - current_index = current_page.data['index']
+                - chapters = sitemap.where(:tags.include => "chapter").all
+                - total_chapters = chapters.count
+                - if  current_index > 1
+                  %li
+                    - previous_chapter = chapters.find {|c| puts c.data['index']; puts current_index - 1; c.data['index'].to_i == current_index - 1}
+                    <a href="#{previous_chapter.url}">&laquo; #{previous_chapter.data.title}</a></li>
+                - if current_index <= total_chapters - 1
+                  %li
+                    - next_chapter = chapters.find {|c| c.data['index'].to_i == current_index + 1}
+                    <a href="#{next_chapter.url}">#{next_chapter.data.title} &raquo;</a></li>
           .row.comments
             %h2 Tell Us What You Think!
             %p What else would you like to see? What do you think is missing or not needed?
@@ -60,31 +62,6 @@
         .col-md-4.col-md-offset-1
           .row.sidebar
             = partial 'sidebar'
-      .row.section
-        .col-md-5
-          .row
-            .col-md-5
-              %h3 About the Author - Prateek Dayal
-          .row
-            .col-md-1
-              = image_tag 'team/prateek.png'
-            .col-md-4
-              %p Prateek Dayal is the CEO and Co-founder of SupportBee. He is a programmer turned CEO and still finding his way in the business world. After work, he is known to be a South East Asia evangelist, in particular evangelizing Vietnam to his friends in Bangalore (and pretty much elsewhere). You can find him on Twitter posting about startups, beer and places.  
-              %p
-                <a href="https://twitter.com/prateekdayal" class="twitter-follow-button" data-show-count="false">Follow @prateekdayal</a>
-                
-
-        .col-md-5.offset1
-          .row
-            .col-md-5
-              %h3 About SupportBee
-          .row
-            .col-md-1
-              = image_tag 'https://sbassets.s3.amazonaws.com/images/the_bee.png'
-            .col-md-4
-              %p <a href="https://supportbee.com/?singlepage" target="_blank">SupportBee</a> is the easiest way for SME companies to manage their customer support emails. While staying close to a Gmail like experience, SupportBee gives companies the tools needed to effortlessly collaborate with their entire team on support emails. Our ticket volume based pricing model encourages you to add everyone in your team to your support desk and get them involved in customer support.
-              %p
-                <a href="https://twitter.com/supportbee" class="twitter-follow-button" data-show-count="false">Follow @supportbee</a>
 
 :javascript
   //

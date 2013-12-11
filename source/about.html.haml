@@ -1,169 +1,20 @@
 ---
 title: About this Book
 ---
+.first_section
+  .row
+    %h1 Developing Single Page Web Apps with Backbone.js
+    %p.subhead For Desktop and Mobile
+    %p.by An ebook by Prateek Dayal
 
-.container
-  .row.first_section.section
-    .span7
-      .row
-        %h1 Developing Single Page Web Apps with Backbone.js
-        %p.subhead For Desktop and Mobile
-        %p.by An ebook by Prateek Dayal
+  .row
+    .explain 
+      %p For the last two years, I have been working on building <a href="https://supportbee.com/?singlepage" target="_blank">SupportBee</a>, a relatively complex single page application. Starting with Backbone.js 0.3.1 and a few hundred lines of javascript code, the application has grown to many screens, mobile presence, push updates and tons of coolness and usefulness. 
 
-      .row
-        .share
-          <a href="https://twitter.com/share" class="twitter-share-button" data-via="supportbee">Tweet</a>
-          <div class="fb-like" data-href="https://singlepagebook.supportbee.com" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
-      .row
-        .explain 
-          %p For the last two years, I have been working on building <a href="https://supportbee.com/?singlepage" target="_blank">SupportBee</a>, a relatively complex single page application. Starting with Backbone.js 0.3.1 and a few hundred lines of javascript code, the application has grown to many screens, mobile presence, push updates and tons of coolness and usefulness. 
+      %p During this time, I have learnt several patterns (and anti-patterns), written <a href="https://supportbee.com/devblog/2011/07/29/backbone-js-tips-lessons-from-the-trenches/" target="_blank">blog posts</a>, <a href="http://www.youtube.com/watch?v=amYKGX6kpEc" target="_blank">given talks</a>, written <a href="https://github.com/SupportBee/Backbone-Factory" target="_blank">Backbone Factory</a> and generally spent a lot of time thinking, writing and re-writing code. This book is a distillation of that knowledge. I want to show you how to build real world applications using Backbone.js. 
 
-          %p During this time, I have learnt several patterns (and anti-patterns), written <a href="https://supportbee.com/devblog/2011/07/29/backbone-js-tips-lessons-from-the-trenches/" target="_blank">blog posts</a>, <a href="http://www.youtube.com/watch?v=amYKGX6kpEc" target="_blank">given talks</a>, written <a href="https://github.com/SupportBee/Backbone-Factory" target="_blank">Backbone Factory</a> and generally spent a lot of time thinking, writing and re-writing code. This book is a distillation of that knowledge. I want to show you how to build real world applications using Backbone.js. 
-
-          %p However, unlike many books on backbone.js, this one is based on (and talks of) a real world application used by hundreds of companies and thousands of people. An application that is constantly evolving and getting new features etc. My goal is to evolve the book as the application evolves. 
-          
-      .row
-        #mc_embed_signup
-          %h4 Signup to receive an update whenever a new chapter is added!
-          %form#mc-embedded-subscribe-form.validate{:action => "http://supportbee.us2.list-manage1.com/subscribe/post?u=42e6ff571eaf930103b81ce44&id=f8bc1e98e3", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
-            .indicates-required
-            .mc-field-group
-              %label{:for => "mce-EMAIL"}
-                Email Address
-                %span.asterisk *
-              %input#mce-EMAIL.required.email{:name => "EMAIL", :type => "email", :value => ""}/
-            #mce-responses.clear
-              #mce-error-response.response{:style => "display:none"}
-              #mce-success-response.response{:style => "display:none"}
-            .clear
-              %input#mc-embedded-subscribe.btn.btn-primary{:name => "subscribe", :type => "submit", :value => "Subscribe for Announcements"}/
-        %p We will email you only when there is a new chapter. No other updates or spam!
-
-    .span4.offset1
-      = image_tag 'singlepage/singlepagebookcover.png'
-
-  - sitemap.where(:tags.include => "chapter").order_by(:index => :desc).all.each do |chapter|
-    %h3
-      %a{:href => chapter.url}= chapter.metadata[:page]['title']
-
-    <br/>
-    <br/>
-    <br/>
-
-  .row.section
-    .span6
-      %h2 Table of Contents
-      %ol 
-        %li
-          The Single Page Mindset
-          %ol 
-            %li Traditional JS enhanced Apps
-            %li Single Page Apps
-            %li Multi-screen single page apps
-            %li Unique challenges faced by single page apps
-        %li
-          Introduction to Backbone.js
-          %ol
-            %li Why Backbone.js
-            %li A Quick walkthrough of the framework
-            %li The Backbone.js Ecosystem
-            %li Recommended Reading
-        %li
-          Setting up our new application
-          %ol
-            %li Setting up a Rails backend and hacking Backbone.js to work with it
-            %li Writing the Ticket model 
-            %li Writing the Ticket view
-            %li Our first router to tie it all together
-            %li Creating a Ticket List by using a collection
-            %li Setting up the navigation
-        %li
-          Managing multiple screens
-          %ol
-            %li The need for a current view class
-            %li URL change first pattern
-            %li Identity map to keep screen updates in sync
-        %li 
-          Posting to the server
-          %ol
-            %li New Reply Model
-            %li New Reply View
-            %li Updating the Ticket View on posting a New Reply
-        %li
-          Getting Fancier
-          %ol
-            %li Keyboard shortcuts
-            %li Keeping track of the last listing
-            %li Showing Loading prompt and other notifications
-        %li 
-          Pushing Updates in Real Time
-          %ol
-            %li Setting up Faye with Rails
-            %li Listening to a Channel
-            %li A scheme for handling different updates
-        %li
-          Rendering on Mobile
-          %ol
-            %li Throwing jQuery Mobile into the mix
-            %li Rendering mobile specific views and layouts
-            %li Selectively turning off functionality on the mobile
-            %li Tips on testing the mobile layout
-        %li
-          Automated Testing using Jasmine
-          %ol
-            %li Introduction to Jasmine & Sinon.js
-            %li Testing Models
-            %li Testing Views
-            %li Testing Collections
-            %li Helpers for writing tests more easily
-        %li
-          Closing Remarks
-          %ol
-            %li Focus on the architecture
-            %li Importance of testing
-    .span4.offset2
-      %h2 Tell Us What You Think!
-      %p What else would you like to see? What do you think is missing or not needed?
-      #disqus_thread
-      :javascript
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'singlepageappsbook'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      %noscript
-        Please enable JavaScript to view the
-        %a{:href => "http://disqus.com/?ref_noscript"} comments powered by Disqus.
-      %a.dsq-brlink{:href => "http://disqus.com"}
-        comments powered by
-        %span.logo-disqus Disqus
-  .row.section
-    .span5
-      .row
-        .span5
-          %h3 About the Author - Prateek Dayal
-      .row
-        .span1
-          = image_tag 'team/prateek.png'
-        .span4
-          %p Prateek Dayal is the CEO and Co-founder of SupportBee. He is a programmer turned CEO and still finding his way in the business world. After work, he is known to be a South East Asia evangelist, in particular evangelizing Vietnam to his friends in Bangalore (and pretty much elsewhere). You can find him on Twitter posting about startups, beer and places.  
-          %p
-            <a href="https://twitter.com/prateekdayal" class="twitter-follow-button" data-show-count="false">Follow @prateekdayal</a>
-            
-
-    .span5.offset1
-      .row
-        .span5
-          %h3 About SupportBee
-      .row
-        .span1
-          = image_tag 'https://sbassets.s3.amazonaws.com/images/the_bee.png'
-        .span4
-          %p <a href="https://supportbee.com/?singlepage" target="_blank">SupportBee</a> is the easiest way for SME companies to manage their customer support emails. While staying close to a Gmail like experience, SupportBee gives companies the tools needed to effortlessly collaborate with their entire team on support emails. Our ticket volume based pricing model encourages you to add everyone in your team to your support desk and get them involved in customer support.
-          %p
-            <a href="https://twitter.com/supportbee" class="twitter-follow-button" data-show-count="false">Follow @supportbee</a>
-
+      %p However, unlike many books on backbone.js, this one is based on (and talks of) a real world application used by hundreds of companies and thousands of people. An application that is constantly evolving and getting new features etc. My goal is to evolve the book as the application evolves. 
+      
+.row
+  %h4 About The Author
+  %p <a href="http://blog.prateekdayal.net">Prateek Dayal</a> is the CEO and Co-founder of SupportBee. He is a programmer turned CEO and still finding his way in the business world. After work, he is known to be a South East Asia evangelist, in particular evangelizing Vietnam to his friends in Bangalore (and pretty much elsewhere). You can find him on <a href="https://twitter.com/prateekdayal">Twitter</a> posting about startups, beer and places.
