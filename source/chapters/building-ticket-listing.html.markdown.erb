@@ -58,7 +58,7 @@ Here we initialize a new collection. Since we have already specified the ``url``
 
 ### Binding callbacks to the current object
 
-Javascript is easy to get started with but it's also confusing to beginners. When a function is invoked, ``this`` always refers to the object invoking the function. This is specially confusing in case of callbacks as ``this`` is typically not the context where you defined the function. In our callback functions ``addOne`` and ``addAll``, we need access to the ``@ticketList`` and other instance variables. We need to ensure that whenever ``addOne`` and ``addAll`` are called, ``this`` refers to the instance of collection. Thankfully Underscore.js provides a useful function ``bindAll`` for this. To use it, we just need to add this line to our ``initialize`` method
+Javascript is easy to get started with but it's also confusing to beginners. When a function is invoked, ``this`` always [refers to the object invoking the function](http://stackoverflow.com/questions/80084/in-javascript-why-is-the-this-operator-inconsistent). This is specially confusing in case of callbacks as ``this`` is typically not the context where you defined the function. In our callback functions ``addOne`` and ``addAll``, we need access to the ``@ticketList`` and other instance variables. We need to ensure that whenever ``addOne`` and ``addAll`` are called, ``this`` refers to the instance of collection. Thankfully Underscore.js provides a useful function ``bindAll`` for this. To use it, we just need to add this line to our ``initialize`` method
 
 <%= gist('https://gist.github.com/prateekdayal/7925682')%>
 
