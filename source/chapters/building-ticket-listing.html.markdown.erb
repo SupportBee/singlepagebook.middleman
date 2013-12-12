@@ -1,0 +1,67 @@
+---
+title: Building the Tickets Listing Screen
+index: 4
+layout: chapter
+tags: ['chapter']
+---
+
+### The Mockup
+
+A ticket list in SupportBee fetches tickets using the API and then displays them in a simple tablular format. Here is a mockup showing what we are going to build
+
+![Mockup of the Tickets Listing](https://supportbee.mybalsamiq.com/mockups/1356261.png?key=4c0f43fb9dc08d4cb8ae499eb22a978463f4e877)
+
+The listing simply lists the customer's name, the replies count, subject, summary and the timestamp. Without worrying about onclick or other behavior, let's go ahead and build this. 
+
+### Ticket Model
+
+At this stage, we need a really simple Backbone model
+
+<%=gist('https://gist.github.com/prateekdayal/7924916')%>
+
+The ``urlRoot`` property generates the URL for a specific model (if it's not part of the collection). More information in the [docs](http://backbonejs.org/#Model-urlRoot). 
+
+The ``name`` attribute is not a standard backbone attribute and it's used to unwrap the API response as explained in chapter on [Setting up our new application](/chapters/setting-new-application/). Every model (and collection) that we use will use a name attribute for the same reason. 
+
+### Tickets Collection
+
+A simple collection is all we need for now. This code listing should be self explainatory:
+
+<%=gist('https://gist.github.com/prateekdayal/7924961')%>
+
+### TicketList View
+
+The ``TicketList`` view is the one responsible for initializing the collection and firing the call to fetch data from the server. It also makes sure that once the data is available, it's used to render the listing. As noted in the [Introduction to Backbone.js chapter](/chapters/introduction-to-backbone/), views in Backbone act more like a controller than simple views. They don't even render any HTML on their own unless asked to.
+
+<%=gist('https://gist.github.com/prateekdayal/7925107')%>
+
+There are a lot of interesting things going on in the small code snippet above. A Backbone View creates a top level element ``@el`` (``this.el`` if you have never seen coffeescript before). It creates a ``div`` by default but  you can specifiy a ``tagName`` to create a different element. Let's break down the code and try to understand it
+
+``$(@el).html(SB.Utils.renderTemplate("tickets/ticket_list")())``
+
+Here we render a handlebars template and append the rendered html to the newly created top level element. All of this is still in the memory. We have not yet attached the top level element to the dom tree. You won't see anything in the browser yet. Here is the template
+
+<%= gist('https://gist.github.com/prateekdayal/7925280')%>
+
+Handlebar templates are logicless (but they can use small helper functions as we'll see in some examples). Depending on your package manager of choice, your templates should be compiled into the final javascript and available as function calls. We use Jammit to do this as explained in the chapter on setup but you can use any package manager you like. 
+
+
+``@ticketList = new SB.Collections.TicketList()``
+
+Here we initialize a new collection. Since we have already specified the ``url`` when defining the collection, we don't need any extra setup here.
+
+ ``@ticketList.on "add", @addOne``
+
+ ``@ticketList.on "reset", @addAll``
+
+ This is where we bind to the events dispatched by the collection. We bind to the ``add`` event which is fired everytime a new model is added to the collection and to the ``reset`` event which is fired when the entire collection is reset (usually after a ``fetch`` call returns the data). By binding to these events, we don't need to keep track of the new models. We are informed whenever there is something new.
+
+### Binding callbacks to the current object
+
+Javascript is easy to get started with but it's also confusing to beginners. When a function is invoked, ``this`` always refers to the object invoking the function. This is specially confusing in case of callbacks as ``this`` is typically not the context where you defined the function. In our callback functions ``addOne`` and ``addAll``, we need access to the the ``@ticketList`` and other instance variables. We need to ensure that whenever ``addOne`` and ``addAll`` are called, ``this`` refers to the instance of collection. Thankfully Underscore.js provides a useful function ``bindAll`` for this. To use it, we just need to add this line to our ``initialize`` method
+
+<%= gist('https://gist.github.com/prateekdayal/7925682')%>
+
+With this simple change, we have made sure that ``this`` is always going to be the context in which this function has been defined. Let's move on to writing the actual callbacks now.
+
+### Rendering Individual Tickets
