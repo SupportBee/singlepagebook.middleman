@@ -93,5 +93,8 @@ helpers do
 end
 
 activate :deploy do |deploy|
-  deploy.method = :git
+  deploy.method = :rsync
+  deploy.host = 'supportbee.com'
+  deploy.path = '/home/rails/apps/singlepage/current'
+  deploy.user = 'rails'
 end
