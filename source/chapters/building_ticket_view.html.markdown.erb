@@ -61,3 +61,9 @@ Now that we have the model, collection and view coded up, it's time to tie every
 Just like the [last chapter](/chapters/building-ticket-listing/) where we rendered a collection of tickets, we create a new `ReplyList` collection, bind to the ``reset`` and ``addOne`` event and fetch the collection. Once the data is available, ``resetReplies`` will be invoked (thanks to the event binding). We then go ahead and iterate over all the replies and render them and append them to the view one by one. We append each reply to the ``replies_list`` div which was defined in the ticket view template.
 
 Hopefully you are starting to see a pattern by now. If we have the data we need, we can simply use it and render a template. However if we need some data from the server, we setup an event handler before making a ``fetch`` call and the rendering happens whever the data is available.
+
+### Opportunities for Refactoring
+
+While we did create a ``Reply`` view to hide away the logic of rendering a ticket, we are still doing a lot of work for rendering replies in the ticket view. Initializing the ``SB.Collections.ReplyList`` collection, binding to events and defining the handlers should ideally happen in a ``ReplyList`` view and the only thing that the Ticket View should be doing is initializing the ``ReplyList``. Whenever you have a complicated view, it's a good idea to look for opportunities for refactoring the view.
+
+That's all for this chapter. In the next chapter, we'll look at posting data to the server as we code up the new reply box. 

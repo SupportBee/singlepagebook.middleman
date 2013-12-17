@@ -1,0 +1,44 @@
+---
+title: "Posting Data to the Server: The New Reply View"
+index: 6
+layout: chapter
+tags: ['chapter']
+---
+
+### A Note on REST(like) APIs
+
+Out of the box, Backbone.js assumes that you are talking to a [RESTful API](http://www.infoq.com/articles/rest-introduction). Based on this assumption, ``Backbone.sync`` makes a few choices for you. If the URL
+
+
+### The NewReply View
+
+Since we already have the ``Reply`` model, we just need a ``NewReply`` view to render the form and then process the reply on button click. 
+
+<%= gist('https://gist.github.com/prateekdayal/15f42bc2f14907fff9d5')%>
+
+The template is a simple form
+
+<%= gist('https://gist.github.com/prateekdayal/7999094')%>
+
+Apart from rendering the form, the ``NewReply`` view also binds the ``onclick`` behavior of the button to a callback ``sendReply``. Since we want access to the current context inside ``sendReply``, we use underscore's ``bindAll`` function to bind ``sendReply`` to the current context. You can read more about event delegation in [Backbone's documentation](http://backbonejs.org/#View-delegateEvents).
+
+To use this new class, we'll define the `renderNewReplyBox` in the ``SB.Views.Ticket`` class that we defined in the [last chapter](chapters/building_ticket_view/). 
+
+<%= gist('https://gist.github.com/prateekdayal/8001029')%>
+
+We initialize a new reply box and pass it the ``@reply_list`` defined in ``renderReplies``. Since the event handlers for ``@reply_list`` are already setup, there is no more setup needed.
+
+Let's take a look at the form handler now, the code that actually creates a new reply using an API call and then renders the new reply in the replies list. For doing so much, the actual code is suprisingly small
+
+```
+@replies_list.create {
+      content_attributes: {
+        text: reply_body
+      },
+      {wait: true}
+    }
+```
+
+Here, we are using the ``create`` method of the collection. You can read more about it in the [docs](http://backbonejs.org/#Collection-create). Behind the scenes, this will create a new model instance (``SB.Models.Reply``) with the attributes that we passed as the argument, make a POST call to ``/tickets/ticket_id/replies``(we had defined this in the ``url`` function in the collection). By passing ``wait:true`` in the options, we are telling Backbone.js to wait for the server before adding the new model to the collection (in case the API call fails for some reason you don't want the reply to be displayed in the reply list).
+
+Since we bound to the ``addOne`` event of the collection in the ticket view, as soon as this model is added to the collection, it is also rendered by the ``addOneModel`` callback.
