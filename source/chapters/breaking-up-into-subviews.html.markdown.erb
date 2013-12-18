@@ -1,0 +1,32 @@
+---
+title: Breaking up the TicketList View into Subviews
+index: 7
+layout: chapter
+tags: ['chapter']
+---
+
+In the last few chapters, we have built two screens - a tickets listing screen and a ticket view. Let's extend the ticket listing to add some more behavior to it. We'll add an event handler that will open a ticket view whenever we click on a particular ticket in the listing
+
+<%= gist('https://gist.github.com/prateekdayal/1ed8627f751cfd841129')%>
+
+The simple additions will ensure that whenever we click on the name or subject of any ticket in the listing, the ``openTicket`` callback is fired, which will initialize a new ticket view and then display it. 
+
+  
+However there is a problem here. To be able to initialize a new ticket view, we need the id of the ticket that was clicked (``ticket_id``). However there is no easy way to get this information in our setup. Since we simply rendered the template in the ``addOne`` method (remember the ``@$('table').append SB.Utils.renderTemplate("tickets/summary")(ticket.toJSON()`` code snippet?), we have lost this information. If you are coming from the jQuery world, the problem (and a potential solution) might be familiar to you. A quick way to solve this would be to store the ticket_id using a [custom data attribute](http://html5doctor.com/html5-custom-data-attributes/) (such as ``data-ticket-id``) in the dom and then fetch it in the callback. While this works, it is messy (what if you need access to another property of the ticket) and it ties you to the dom. A better way would be to break down the Ticket List view into subviews.
+
+### TicketSummary View
+
+To fix the problem the Backbone way, we should create a TicketSummary view which will render and manage the interactions for the summaries. Here is how the view will look like
+
+<%= gist('https://gist.github.com/prateekdayal/8016310')%>
+
+By creating this subview, we have moved all the logic responsible for rendering the ticket summary and managing the onclick interaction away from the ``TicketList`` class. We no longer need to store the ``ticket_id`` in the dom (as we have access to the ticket instance in the ``openTicket`` callback). The ``TicketList`` class must be modified to use this new class
+
+<%= gist('https://gist.github.com/prateekdayal/1e8a89c204a7c6bc1198')%>
+
+This makes the ``TicketList`` class much simpler too. It only initializes and appends a new view into the dom. It no longer needs to worry about actually rendering the right template or biding to the right events.
+
+### The Subview Pattern
+
+
+
