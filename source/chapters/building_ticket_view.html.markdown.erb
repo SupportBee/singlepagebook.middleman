@@ -1,0 +1,69 @@
+---
+title: Building the Ticket View
+index: 5
+layout: chapter
+tags: ['chapter']
+---
+
+### The Mockup
+
+Like the previous chapter, let's start with a quick mockup
+
+![Mockup of the Tickets View](https://supportbee.mybalsamiq.com/mockups/1362391.png?key=4c0f43fb9dc08d4cb8ae499eb22a978463f4e877)
+
+As you can see in the mockup, we want to make a simple ticket view with a list of replies and a text box to post a new reply. Let's get started
+
+### Ticket View
+
+Since we have already defined ``SB.Models.Ticket`` model, we simply need a ``SB.Views.Ticket`` view. Here's the code. 
+
+<%= gist('https://gist.github.com/prateekdayal/7969798')%>
+
+Just like the TicketList view, we render a template, once again passing in a json to populate the data. The template looks like this
+
+<%= gist('https://gist.github.com/prateekdayal/7969990')%>
+
+Apart from the ticket's details, the template also has empty divs for rendering replies and the new reply box. Let's work on rendering the replies.
+
+
+### The Reply Model
+
+To be able to fetch and render replies, we first need a simple model
+
+<%= gist('https://gist.github.com/prateekdayal/7970036')%>
+
+Apart from the ``name`` attribute (needed for unwrapping the JSON responses), we don't to define much in this model - not even the ``urlRoot`` property.
+
+### The Replies Collection
+
+Since a ticket could have several replies, we need a collection to fetch the replies from the server
+
+<%= gist('https://gist.github.com/prateekdayal/7970050')%>
+
+Since the [API endpoint for replies](https://developers.supportbee.com/api#fetching_replies) depends on the ``ticket_id``, we define a url method that will return the correct endpoint for making API calls.
+
+### The Reply View
+
+While we can code up the logic for rendering the replies in the ticket view, it's better to create a new view and initialize it in the ticket view. This way, as the reply view grows over time, it won't bloat up the ticket view. It's very important to break up your application into screens and then breakup each screen into several views that can be coded and tested individually. Here is the code for the reply view
+
+<%= gist('https://gist.github.com/prateekdayal/965c05d21002d38bcdf1')%>
+
+The template
+
+<%= gist('https://gist.github.com/prateekdayal/7983090')%>
+
+### Fetching Replies and Rendering Them
+
+Now that we have the model, collection and view coded up, it's time to tie everything up together. We'll be extending the ``SB.Views.Ticket`` class to add this functionality. The ``buildView`` method in the ticket view calls ``renderReplies`` and all we need to do is define that method
+
+<%= gist('https://gist.github.com/prateekdayal/a3c099bb5de9ca6cf04a')%>
+
+Just like the [last chapter](/chapters/building-ticket-listing/) where we rendered a collection of tickets, we create a new `ReplyList` collection, bind to the ``reset`` and ``addOne`` event and fetch the collection. Once the data is available, ``resetReplies`` will be invoked (thanks to the event binding). We then go ahead and iterate over all the replies and render them and append them to the view one by one. We append each reply to the ``replies_list`` div which was defined in the ticket view template.
+
+Hopefully you are starting to see a pattern by now. If we have the data we need, we can simply use it and render a template. However if we need some data from the server, we setup an event handler before making a ``fetch`` call and the rendering happens whever the data is available.
+
+### Opportunities for Refactoring
+
+While we did create a ``Reply`` view to hide away the logic of rendering a ticket, we are still doing a lot of work for rendering replies in the ticket view. Initializing the ``SB.Collections.ReplyList`` collection, binding to events and defining the handlers should ideally happen in a ``ReplyList`` view and the only thing that the Ticket View should be doing is initializing the ``ReplyList``. Whenever you have a complicated view, it's a good idea to look for opportunities for refactoring the view.
+
+That's all for this chapter. In the next chapter, we'll look at posting data to the server as we code up the new reply box. 
