@@ -21,5 +21,6 @@
 *.un*
 *.swp
 *.swn
+*.swm
 *.swo
 tmp/

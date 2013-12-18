@@ -1,0 +1,27 @@
+---
+title: Managing Multiple Screens
+index: 8
+layout: chapter
+tags: ['chapter']
+---
+
+Now that we have some experience in building screens for our application, let's see how we can manage them better. Our pattern for showing screens has been something like this
+
+<%= gist('https://gist.github.com/prateekdayal/6d382273b3dfddf746df') %>
+
+This replaces whatever is currently in the body tag with the contents of the new screen. If we wanted some sections of the screen to persist, we could change the ``$('body')`` to ``$('#dyanamic_view')`` and only replace the contents in a specific div. However this simple approach as several drawbacks
+
+* The user cannot use the back button to navigate the application.
+* The screens cannot be bookmarked. You cannot email someone the link to a ticket by copying it from the browser's address bar.
+* Views need to know about each other. For example, the ``SB.Views.TicketSummary`` class initializes a new instance of the ``SB.Views.Ticket`` to open the ticket on click.
+
+In this chapter, let's look at some techniques for managing multiple screens and solving some of these issues.
+
+### The Main View & Backbone.Router
+
+### URL Change First Pattern
+
+### The Current View Class
+
+### Caching the Views
+

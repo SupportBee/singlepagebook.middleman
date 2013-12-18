@@ -24,9 +24,19 @@ By creating this subview, we have moved all the logic responsible for rendering 
 
 <%= gist('https://gist.github.com/prateekdayal/1e8a89c204a7c6bc1198')%>
 
-This makes the ``TicketList`` class much simpler too. It only initializes and appends a new view into the dom. It no longer needs to worry about actually rendering the right template or biding to the right events.
+This makes the ``TicketList`` class much simpler too. It only initializes and appends a new view into the dom. It no longer needs to worry about actually rendering the right template or binding to the right events.
 
 ### The Subview Pattern
+
+We talked about this briefly in a previous chapter but let's discuss what I call the 'Subview pattern' in more detail. It helps to think of your application as distinct screens and then think of each screen as made up of subviews. Coming from a desktop (or mostly jQuery) world, we tend to think of a page as a home. This view comes from loking at the page as one dom tree. However as we saw earlier, when designing single page apps, it helps to think of the screen as comprised of several blocks. Blocks of html but more importantly functionality.
+
+### Using Events to communicate between Subviews
+
+Any view that could have behavior on it's own
+Any view that needs to change on any data change
+Any view that manages a group of views
+
+
 
 
 
