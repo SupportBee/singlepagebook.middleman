@@ -1,0 +1,42 @@
+---
+title: Managing Screen Transitions Better
+index: 9
+layout: chapter
+tags: ['chapter']
+---
+
+So far, we have built a few screens and figured out how to give them bookmarkable URLs. However we are still using a very rudimentary approach for displaying the screens on the page. While the simple approach of replacing the contents of a specific div does the job, it has several limitations. For example, you cannot easily cache the screens so that they are re-used on pressing the back button. It is also difficult for the newly shown screen to communicate to the old screen that it's no longer in view (to trigger a cleanup or another behavior when this screen is hidden). In this chapter, we'll look at ways to circumvent these problems.
+
+### The Current View Class
+
+Let's refactor the logic of displaying a view into it's own class. Before we go ahead and write this class, let's see how we might end up using it. We'll initialize it in the ``MainView#initialize`` method and we'll use it in a route callback. The code will look something like this
+
+<%= gist('https://gist.github.com/prateekdayal/194a9404b891409dd363')%>
+
+As you can see, to render a view on the screen, we now simply call the set method of the ``@current_view`` object. We no longer have to worry about Dom manipulation in every route callback we define. When we initialize the ``SB.Views.CurrentView`` class, we also pass it the dom element that we want to render the actual contents in.
+
+Let's look at the implementation of the ``CurrentView`` class now that we know how we want to use it
+
+<%= gist 'https://gist.github.com/prateekdayal/8111163' %>
+
+This simple implementation updates the html element with the new view. Let's look at making the CurrentView class more useful.
+
+### Caching the Views
+
+Now that we have the routes setup, we can use the back button to go back to the last screen. If we open the ticket list and then click to open a single ticket and press the back button, we should see the listing again. However, behind the scenes a new instance of ``SB.Views.TicketList`` will be initialized and then rendered again. To make the navigation faster, we can cache the view and re-display it instead. Let's write a very simple cache store that can saved a value (a javascript object) against a key
+
+<%= gist('https://gist.github.com/prateekdayal/8131462')%>
+
+To use this cache store, we use a simple wrapper that can either return the value from cache or generate it by invoking the anonymous function passed in as an argument (much like the CacheStore in Rails)
+
+<%= gist('https://gist.github.com/prateekdayal/8131663')%>
+
+We can now modify our route handler to load up a cached view (or initialize one the first time)
+
+<%= gist('https://gist.github.com/prateekdayal/8132179')%> 
+
+In this example, we are writing a handler for opening search screens but instead of initializing a new screen everytime, we check to see if there is an existing object that can be re-used. This saves us the time to initialize a new instance, fetch the data from the server and then re-render it.
+
+However our ``CurrentView`` class is still replacing the contents of the dom instead of re-using already added dom elements. Let's fix that by refactoring it to show/hide existing dom elements instead
+
+<%= gist('https://gist.github.com/prateekdayal/8133284')%>
