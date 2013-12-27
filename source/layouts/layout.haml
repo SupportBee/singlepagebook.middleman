@@ -40,7 +40,7 @@
                     - next_chapter = chapters.find {|c| c.data['index'].to_i == current_index + 1}
                     <a href="#{next_chapter.url}">#{next_chapter.data.title} &raquo;</a></li>
           .row.comments
-            %h2 Tell Us What You Think!
+            %h2 Tell Me What You Think!
             %p What else would you like to see? What do you think is missing or not needed?
             #disqus_thread
             :javascript
