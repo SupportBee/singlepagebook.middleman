@@ -3,7 +3,9 @@ title: Developing Single Page Web Apps with Backbone.js
 ---
 
 %h2 Table of Contents
-%ol 
+%ol{:start => 0}
+  %li
+    %a{:href => 'chapters/preface'} Introduction
   - sitemap.where(:tags.include => "chapter").order_by(:index => :asc).all.each do |chapter|
     %li
       %a{:href => chapter.url}= chapter.metadata[:page]['title']
