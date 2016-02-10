@@ -10,3 +10,9 @@ bundle install
 bundle exec middleman server
 
 ```
+
+To deploy
+
+```
+bundle exec middleman deploy
+```
