@@ -7,7 +7,7 @@ tags: ['chapter']
 
 So far, we have built a few screens and figured out how to give them bookmarkable URLs. However we are still using a very rudimentary approach for displaying the screens on the page. While the simple approach of replacing the contents of a specific div does the job, it has several limitations. For example, you cannot easily cache the screens so that they are re-used on pressing the back button. It is also difficult for the newly shown screen to communicate to the old screen that it's no longer in view (to trigger a cleanup or another behavior when this screen is hidden). In this chapter, we'll look at ways to circumvent these problems.
 
-### The Current View Class
+## The Current View Class
 
 Let's refactor the logic of displaying a view into it's own class. Before we go ahead and write this class, let's see how we might end up using it. We'll initialize it in the ``MainView#initialize`` method and we'll use it in a route callback. The code will look something like this
 
@@ -21,7 +21,7 @@ Let's look at the implementation of the ``CurrentView`` class now that we know h
 
 This simple implementation updates the html element with the new view. Let's look at making the CurrentView class more useful.
 
-### Caching the Views
+## Caching the Views
 
 Now that we have the routes setup, we can use the back button to go back to the last screen. If we open the ticket list and then click to open a single ticket and press the back button, we should see the listing again. However, behind the scenes a new instance of ``SB.Views.TicketList`` will be initialized and then rendered again. To make the navigation faster, we can cache the view and re-display it instead. Let's write a very simple cache store that can saved a value (a javascript object) against a key
 

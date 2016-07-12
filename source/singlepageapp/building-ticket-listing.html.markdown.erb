@@ -13,7 +13,7 @@ A ticket list in SupportBee fetches tickets using the API and then displays them
 
 The listing simply lists the customer's name, the replies count, subject, summary and the timestamp. Without worrying about onclick or other behavior, let's go ahead and build this. 
 
-### Ticket Model
+## Ticket Model
 
 At this stage, we need a really simple Backbone model
 
@@ -23,13 +23,13 @@ The ``urlRoot`` property generates the URL for a specific model (if it's not par
 
 The ``name`` attribute is not a standard backbone attribute and it's used to unwrap the API response as explained in chapter on [Setting up our new application](/chapters/setting-new-application/). Every model (and collection) that we use will use a name attribute for the same reason. 
 
-### Tickets Collection
+## Tickets Collection
 
 A simple collection is all we need for now. This code listing should be self explanatory:
 
 <%=gist('https://gist.github.com/prateekdayal/7924961')%>
 
-### TicketList View
+## TicketList View
 
 The ``TicketList`` view is the one responsible for initializing the collection and firing the call to fetch data from the server. It also makes sure that once the data is available, it's used to render the listing. As noted in the [Introduction to Backbone.js chapter](/chapters/introduction-to-backbone/), views in Backbone act more like a controller than simple views. They don't even render any HTML on their own unless asked to.
 
@@ -56,7 +56,7 @@ Here we initialize a new collection. Since we have already specified the ``url``
 
  This is where we bind to the events dispatched by the collection. We bind to the ``add`` event which is fired everytime a new model is added to the collection and to the ``reset`` event which is fired when the entire collection is reset (usually after a ``fetch`` call returns the data). By binding to these events, we don't need to keep track of the new models. We are informed whenever there is something new.
 
-### Binding callbacks to the current object
+## Binding callbacks to the current object
 
 Javascript is easy to get started with but it's also confusing to beginners. When a function is invoked, ``this`` always [refers to the object invoking the function](http://stackoverflow.com/questions/80084/in-javascript-why-is-the-this-operator-inconsistent). This is specially confusing in case of callbacks as ``this`` is typically not the context where you defined the function. In our callback functions ``addOne`` and ``addAll``, we need access to the ``@ticketList`` and other instance variables. We need to ensure that whenever ``addOne`` and ``addAll`` are called, ``this`` refers to the instance of collection. Thankfully Underscore.js provides a useful function ``bindAll`` for this. To use it, we just need to add this line to our ``initialize`` method
 
@@ -64,7 +64,7 @@ Javascript is easy to get started with but it's also confusing to beginners. Whe
 
 With this simple change, we have made sure that ``this`` is always going to be the context in which this function has been defined. Let's move on to writing the actual callbacks now.
 
-### Rendering Individual Tickets
+## Rendering Individual Tickets
 
 The task of rendering a ticket list view can be broken down into rendering individual tickets. This is where ``addOne`` callback comes in. 
 
@@ -82,7 +82,7 @@ The ``addAll`` callback simply iterates over the fetched collection and invokes 
 
 Once again, if you notice, we haven't added anything to the dom and all of this is still in memory and not visible anywhere on the page.
 
-### Putting it all together
+## Putting it all together
 
 We now have everything needed to show a ticket listing. In theory this code is enough to render the view on the page
 
@@ -90,6 +90,6 @@ We now have everything needed to show a ticket listing. In theory this code is e
 
 This code will initialize a new ticket list view (there can be several on a page as we'll see in subsequent chapters) and then appends the top level element (in our case, a div with class ``listing``) to the body. Since the fetch is done asynchronously, the ``addAll`` callback might be invoked after the view has been appended to the body. However since we ``addOne`` appends to the ``el``, we'll get to see the tickets whenever the server responds with data.
 
-### Next Steps
+## Next Steps
 
 Congratulations! You now have a simple Backbone app (rather one screen of the app) up and running. In the next chapters we'll figure out how to make this listing interactive (click to open the ticket view). We'll also refactor some code to show a few useful patterns. 

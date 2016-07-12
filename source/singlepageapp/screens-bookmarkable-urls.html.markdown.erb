@@ -17,7 +17,7 @@ This replaces whatever is currently in the body tag with the contents of the new
 
 In this chapter, let's look at some techniques for managing multiple screens and solving some of these issues.
 
-### The Main View
+## The Main View
 
 Let's create a ``MainView`` class. You can also call this the ``App`` class or something more meaningful. Basically in our html page, we will initialize this class to start our app. Let's look at how this class would be used to get a better sense. This is the HTML returned by your server (even a single page app needs the first page sent back by the server and rendered as html in the browser).
 
@@ -29,7 +29,7 @@ This page will fetch all our assets and start the application by initializing th
 
 In our HTML, we had defined an empty div with the id ``placeholder``. We use this as the top-level element for the application. Everything else will now be populated inside this div. Finally we setup routes!
 
-###  Setting up Routes using Backbone.Router
+##  Setting up Routes using Backbone.Router
 
 [Backbone.Router](http://backbonejs.org/#Router) provides us with the functionality needed to create linkable, bookmarkable, shareable URLs for important locations in the app. The documentation does a great job of explaining what the router provides but in a nutshell, it let's you map URLs to actions. You can add new routes anytime in your application and they are immediately available.
 
@@ -47,7 +47,7 @@ Backbone.history handles the URL changed event and fires the right callback. We 
 <%= gist('https://app.gistboxapp.com/library/my-gists')%>
 
 
-### URL Change First Pattern
+## URL Change First Pattern
 
 Backbone provides a ``navigate`` function for the router. Whenever you reach a point in your application that you'd like to save as a URL, call navigate in order to update the URL. If you pass ``trigger:true`` in options, Backbone will also invoke the corresponding callback function (the one you set when defining the route). While this is optional, this is the pattern we use in SupportBee all the time. 
 

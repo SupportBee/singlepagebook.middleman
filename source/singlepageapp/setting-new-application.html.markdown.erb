@@ -31,7 +31,7 @@ If you notice, the individual tickets are inside a top level ``tickets`` element
 
 You can also find [this script](https://gist.github.com/prateekdayal/5530636) on Github. It's based off [another script](https://gist.github.com/trydionel/719080/604761f843f85d9916b790b6367f6de5e42fa19d) that I found on Github too!
 
-### Name attribute for Models and Collections
+## Name attribute for Models and Collections
 
 To use the script, you must now provide a name attribute when defining all models and collections that need to interact with the API. This property is used to unwrap the JSON provided by the API.
 
@@ -43,7 +43,7 @@ This is what our Jammit file looks like. I have removed many files from the list
 
 <%=gist('https://gist.github.com/prateekdayal/7246025')%>
 
-### Using the packaged assets
+## Using the packaged assets
 
 This step depends on the package manager that you are using. Jammit provides some helpers for Rails that you can use to include the packaged assets. In development mode, nothing is concatenated for easier debugging. In production, assets are concatenated, some assets are embedded in the stylesheeets (if you have the option turned on). This is how you can include the files in your HTML file (we use [HAML](http://haml.info/) with Rails and so the code below is HAML which is eventually converted to HTML). 
 

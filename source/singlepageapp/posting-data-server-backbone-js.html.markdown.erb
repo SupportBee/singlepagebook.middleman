@@ -5,12 +5,12 @@ layout: chapter
 tags: ['chapter']
 ---
 
-### A Note on REST(like) APIs
+## A Note on REST(like) APIs
 
 Out of the box, Backbone.js assumes that you are talking to a [RESTful API](http://www.infoq.com/articles/rest-introduction). Based on this assumption, ``Backbone.sync`` makes a few choices for you. If your collection's URL is ``/tickets``, on creating a new model, Backbone will make a ``POST`` call to ``/tickets``. To edit an existing model, a ``PUT`` call will be made to ``/tickets/ticket_id``. You can read about this (and on ways to customize this behavior) in the [docs on Backbone.Sync](http://backbonejs.org/#Sync).
 
 
-### The NewReply View
+## The NewReply View
 
 Since we already have the ``Reply`` model, we just need a ``NewReply`` view to render the form and then process the reply on button click. 
 

@@ -24,7 +24,7 @@ In their own words,
 
 Let's go over the main components of Backbone.js (in the order that they are introduced in, in the official documentation)
 
-### Events
+## Events
 
 Events are at the heart of Backbone.js and any well designed single page app. By mixing in the ``Events`` module, almost any object can dispatch and listen to events. Out of the box Models, Views and Controllers can dispatch and listen to events. There are several pre-defined events in Backbone.js and you can (and you should, as we will see later) define and dispatch custom events. Let's look at a quick example (taken from the Backbone.js documentation)
 
@@ -32,7 +32,7 @@ Events are at the heart of Backbone.js and any well designed single page app. By
 
 In this simple example, every time ``object`` wants to alert _someobject_, it can dispatch the ``alert`` event. Other objects can bind to this event and respond however they want. The ``object`` does not need to know who is listening to this event and what they are doing with that information.
 
-### Backbone.Model
+## Backbone.Model
 
 Backbone Models offer you a way to organize your domain specific code. Just like models in other MVC frameworks like Ruby on Rails, models in Backbone.js manage the domain data, validations etc. Using ``Backbone.Sync``, they also take care of saving and fetching data from the server. 
 
@@ -41,13 +41,13 @@ However, unlike Rails' models, Backbone.js models can help you manage change too
 As you will see in subsequent chapters, this is very powerful and helps you build interactive apps much more easily.
 
 
-### Backbone.Collection
+## Backbone.Collection
 
 Backbone Collections are ordered set of Models. Most single page applications need atleast one (and often more) collections. For example, a simple To-Do application would model each To-Do item as a model and the entire list as a To-Do collection. A more complex application like Gmail might have an Email model but many collections (one each for Inbox, Sent, Starred etc).
 
 Just like models, collections fire events whenever things change. Everytime a new model is added to the collection or a model is removed, a change event is fired. This helps you update the UI or do other interesting things. For example, in the product listing example from the previous page, we will create a ``Products`` collection. We will also bind to the ``add`` and ``remove`` events so we can render a new product or remove a product from the page whenever a product is added or removed from the catalog.
 
-### Backbone.Router
+## Backbone.Router
 
 Backbone.Router provides methods for routing client-side pages, and connecting them to actions and events. A simple example can illustrate this very well
 
@@ -55,11 +55,11 @@ Backbone.Router provides methods for routing client-side pages, and connecting t
 
 The ``Workspace`` router will setup routes such as ``/help`` (or ``#help`` if you are on an older browser that does not support HTML5 history API). Whenever a route is matched, the corresponding handler (function) will be invoked. The [Backbone.js documentation on Router](http://backbonejs.org/#Router) gives a good overview of all the features. While the docs don't explicitly state it, you can create routes on the fly. This is a powerful feature that we use a lot in SupportBee. We'll talk about it and a few other patterns in a subsequent chapter.
 
-### Backbone.Sync
+## Backbone.Sync
 
 Sync is responsible for all the server integrations. Whenever you save a model or fetch a collection, Backbone.Sync is involved. The Backbone documentation gives a great overview and if you are building a typical web-app that talks to a RESTful API, you will hardly have to fiddle with Backbone.Sync.
 
-### Backbone.View
+## Backbone.View
 
 Even though it is called a View, I like to think of Backbone.View as more of a controller (much like Rails Controller). Views by themselves don't really render any HTML or CSS (just like Rails controller don't render html - the template does). 
 

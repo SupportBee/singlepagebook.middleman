@@ -14,7 +14,7 @@ The simple additions will ensure that whenever we click on the name or subject o
   
 However there is a problem here. To be able to initialize a new ticket view, we need the id of the ticket that was clicked (``ticket_id``). However there is no easy way to get this information in our setup. Since we simply rendered the template in the ``addOne`` method (remember the ``@$('table').append SB.Utils.renderTemplate("tickets/summary")(ticket.toJSON()`` code snippet?), we have lost this information. If you are coming from the jQuery world, the problem (and a potential solution) might be familiar to you. A quick way to solve this would be to store the ticket_id using a [custom data attribute](http://html5doctor.com/html5-custom-data-attributes/) (such as ``data-ticket-id``) in the dom and then fetch it in the callback. While this works, it is messy (what if you need access to another property of the ticket) and it ties you to the dom. A better way would be to break down the Ticket List view into subviews.
 
-### TicketSummary View
+## TicketSummary View
 
 To fix the problem the Backbone way, we should create a TicketSummary view which will render and manage the interactions for the summaries. Here is how the view will look like
 
@@ -26,6 +26,6 @@ By creating this subview, we have moved all the logic responsible for rendering 
 
 This makes the ``TicketList`` class much simpler too. It only initializes and appends a new view into the dom. It no longer needs to worry about actually rendering the right template or binding to the right events.
 
-### The Subview Pattern
+## The Subview Pattern
 
 We talked about this briefly in a previous chapter but let's discuss what I call the 'Subview pattern' in more detail. It helps to think of your application as distinct screens and then think of each screen as made up of subviews. Coming from a desktop (or mostly jQuery) world, we tend to think of a page as a home. This view comes from loking at the page as one dom tree. However as we saw earlier, when designing single page apps, it helps to think of the screen as comprised of several blocks. Blocks of html but more importantly functionality.
